@@ -38,9 +38,21 @@ function App() {
         <h1>Meu Dicionário</h1>
         {data ? (
           <div>
-            <p>Kanji: {kanji}</p>
+            <p>Kanji: {data.query}</p>
             <p>Significado: {data.meaning}</p>
+            <p>Taught in: {data.taughtIn}</p>
+            <p>JLPT level: {data.jlptLevel}</p>
+            <p>Meaning: {data.meaning}</p>
+            <p>Kunyomi: {JSON.stringify(data.kunyomi)}</p>
+            <p>Kunyomi example: {JSON.stringify(data.kunyomiExamples[0])}</p>
+            <p>Onyomi: {JSON.stringify(data.onyomi)}</p>
+            <p>Onyomi example: {JSON.stringify(data.onyomiExamples)}</p>
+            <p>Radical: {data.radical.symbol} {data.radical.forms ? `(${data.radical.forms})` : ''} - {data.radical.meaning}</p>
+            <p>Stroke order diagram: {data.strokeOrderDiagramUri}</p>
+            <p>Stroke order SVG: {data.strokeOrderSvgUri}</p>
+            <p>Jisho Uri: {data.uri}</p>
             <img src={data.strokeOrderGifUri} alt="Ordem dos traços" />
+            <p>Stroke order GIF: {data.strokeOrderGifUri}</p>
           </div>
         ) : (
             <p>Carregando...</p>
