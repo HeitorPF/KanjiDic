@@ -1,31 +1,16 @@
 import { useState } from 'react';
 import './App.css'
 
-function KanjiInput({setData, setIsLoading}) {
-  const [kanjiInput, setKanjiInput] = useState('')
+function KanjiInput({searchKanji, kanjiInput, setKanjiInput}) {
 
   function saveKanjiInput(event) {
     setKanjiInput(event.target.value)
   }
 
-  function searchKanji() {
-    setIsLoading(true)
-    fetch(`http://localhost:3001/api/kanji/${kanjiInput}`)
-      .then(response => response.json())
-      .then(result => {
-        console.log("Dados recebidos do backend:", result);
-        setData(result);
-        setIsLoading(false)
-        setKanjiInput('')
-      })
-      .catch(err => console.error("Erro:", err));
-
-  }
-
   return(
     <>
       <input onChange={saveKanjiInput} value={kanjiInput}/>
-      <button onClick={searchKanji}>Procurar</button>
+      <button onClick={() => {searchKanji(kanjiInput)}}>Procurar</button>
     </>
   )
 }
@@ -69,32 +54,53 @@ function KanjiInfo({data}) {
   )
 }
 
-function KanjiLists() {
-  function listKanjis(category, level){
+function KanjiLists({searchKanji}) {
+  const [listKanjis, setListKanjis] = useState(null)
+
+  function clearList() {
+    setListKanjis(null)
+  }
+
+  function getListKanjis(category, level){
     fetch(`http://localhost:3001/api/kanji/${category}/${level}`)
       .then(response => response.json())
       .then(result => {
-        console.log(`Dados de ${category} encontrados: `, result)
+        setListKanjis(result)
       })
       .catch(err => console.log('Erro:', err))
   }
 
   return(
     <>
-      <button onClick={() => listKanjis('grade', '1')}>grade 1</button>
-      <button onClick={() => listKanjis('grade', '2')}>grade 2</button>
-      <button onClick={() => listKanjis('grade', '3')}>grade 3</button>
-      <button onClick={() => listKanjis('grade', '4')}>grade 4</button>
-      <button onClick={() => listKanjis('grade', '5')}>grade 5</button>
-      <button onClick={() => listKanjis('grade', '6')}>grade 6</button>
+      <button onClick={() => getListKanjis('grade', '1')}>grade 1</button>
+      <button onClick={() => getListKanjis('grade', '2')}>grade 2</button>
+      <button onClick={() => getListKanjis('grade', '3')}>grade 3</button>
+      <button onClick={() => getListKanjis('grade', '4')}>grade 4</button>
+      <button onClick={() => getListKanjis('grade', '5')}>grade 5</button>
+      <button onClick={() => getListKanjis('grade', '6')}>grade 6</button>
+      <button onClick={() => getListKanjis('grade', '8')}>grade 8</button>
+      <button onClick={clearList}>Clear</button>
+      <div className='kanjisList'>
+        {listKanjis ? (
+          listKanjis.map((kanji, index) => {
+            return (
+              <div key={index} className='kanji' onClick={() => {searchKanji(kanji)}}>{kanji}</div>
+            )
+          })
+          ) : (
+            <>
+            </>
+          )
+        }
+      </div>
     </>
   )
 }
 
-function LoadingSpinner() {
+function LoadingSpinner({kanjiInput}) {
   return (
     <div style={{padding: '20px', fontWeight: 'bold'}}>
-      Pesquisando... ⏳
+      Pesquisando por {kanjiInput}... ⏳
     </div>
   )
 }
@@ -102,21 +108,42 @@ function LoadingSpinner() {
 function App() {
   const [data, setData] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [kanjiInput, setKanjiInput] = useState('')
+
+  function searchKanji(kanjiInput) {
+    setIsLoading(true)
+    setKanjiInput(kanjiInput)
+    fetch(`http://localhost:3001/api/kanji/${kanjiInput}`)
+      .then(response => response.json())
+      .then(result => {
+        console.log("Dados recebidos do backend:", result);
+        setData(result);
+        setIsLoading(false)
+        setKanjiInput('')
+      })
+      .catch(err => console.error("Erro:", err));
+
+  }
 
   return (
     <>
       <div>
-        <KanjiLists />
+        <KanjiLists 
+          searchKanji={searchKanji}
+        />
 
         <h1>Kanji dic</h1>
-        <KanjiInput 
-          setIsLoading={setIsLoading}
-          setData={setData}
+        <KanjiInput
+          kanjiInput={kanjiInput}
+          setKanjiInput={setKanjiInput}
+          searchKanji={searchKanji}
         />   
         {
           isLoading ? 
           (
-            <LoadingSpinner />
+            <LoadingSpinner
+              kanjiInput={kanjiInput}
+            />
           ) : (
             <KanjiInfo 
               data={data} 
