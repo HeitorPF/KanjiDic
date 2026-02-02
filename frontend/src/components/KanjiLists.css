@@ -1,0 +1,13 @@
+.kanjisList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: stretch;
+  padding: 2rem 5rem;
+  gap: 5px;
+}
+.kanji {
+  padding: .5rem;
+  border: 1px black solid;
+  cursor: pointer;
+}
