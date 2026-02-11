@@ -15,7 +15,7 @@ export function KanjiInput({ kanjiInput, setKanjiInput, searchInfo, setSearchInf
       </div>
 
 
-      <input className="kanji-input" onChange={saveKanjiInput} value={kanjiInput} />
+      <input placeholder='犬' className="kanji-input" onChange={saveKanjiInput} value={kanjiInput} />
       <button className='search-button' onClick={() => {search(kanjiInput)}}>Search</button>
 
     </>

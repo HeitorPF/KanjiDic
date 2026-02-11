@@ -27,11 +27,12 @@
   font-size: 1.5rem;
   font-weight: 500;
   cursor: pointer;
-  transition: 0.3s;
 }
 
 .options-button:hover {
   background-color: hsl(0, 69%, 35%);
+  transform: scale(1.1);
+  transition: .1s;
 }
 
 .active {
@@ -39,10 +40,10 @@
 }
 
 .active:hover {
-  background-color: hsl(158, 95%, 25%);
+  background-color: hsl(158, 96%, 25%);
 }
 
-.search-button{
+.search-button {
   background-color: hsl(207, 96%, 35%);
   height: 3rem;
   width: 10rem;
@@ -52,8 +53,11 @@
   font-weight: 500;
   cursor: pointer;
   transition: 0.3s;
+  margin-bottom: 2rem;
 }
 
-.search-button:hover{
-  background-color: hsl(207, 96%, 25%);
+.search-button:hover {
+  background-color: hsl(207, 96%, 30%);
+  transform: scale(1.1);
+  transition: .1s;
 }

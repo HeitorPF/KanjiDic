@@ -11,13 +11,14 @@ export function KanjiInfo({ info }) {
       console.log('Falha ao copiar texto:', err)
     }
   }
+  if (info) {
 
-  return (
-    <>
-      {info ? (
+    return (
+      <>
         <div className='kanji-info'>
-
+          
           <img className='img-stroke-order' onClick={() => { copytoClipboard(info.data.strokeOrderGifUri) }} src={info.data.strokeOrderGifUri} alt="Stroke order" />
+
           <div className='general-info'>
             <p>Kanji: {info.data.query}</p>
             <p>Taught in: {info.data.taughtIn}</p>
@@ -30,10 +31,8 @@ export function KanjiInfo({ info }) {
           </div>
 
         </div>
-      ) :
-        <></>
-      }
+      </>
+    )
+  }
 
-    </>
-  )
 }

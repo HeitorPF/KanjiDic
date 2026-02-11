@@ -15,9 +15,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(false)
   const [kanjiInput, setKanjiInput] = useState('')
 
-  const [searchInfo, setSearchInfo] = useState(false)
-  const [searchVocab, setSearchVocab] = useState(false)
-  const [searchPhrases, setSearchPhrases] = useState(false)
+  const [searchInfo, setSearchInfo] = useState(true)
+  const [searchVocab, setSearchVocab] = useState(true)
+  const [searchPhrases, setSearchPhrases] = useState(true)
 
   async function searchKanjiInfo(kanji) {
     if (kanji !== kanjiInfo?.query) {

@@ -1,0 +1,39 @@
+.kanji-phrases {
+  max-width: 80vw;
+  min-width: 40rem;
+  margin: auto;
+  margin-bottom: 2rem;
+}
+
+.kanji-phrases-grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  place-items: center;
+}
+
+.grid-header {
+  background-color: hsl(207, 96%, 35%);
+  height: 100%;
+  width: 100%;
+  padding: .25rem;
+}
+
+.grid-row {
+  border-bottom: 1px solid transparent;
+  height: 100%;
+  width: 100%;
+  padding: .5rem;
+  font-size: 1.25rem;
+}
+
+.grid-row.transcriptions:hover {
+  border-bottom: 1px solid hsl(207, 96%, 35%);
+}
+
+.grid-row.transcriptions:hover+.grid-row {
+  border-bottom: 1px solid hsl(207, 96%, 35%);
+}
+
+rt{
+  font-size: .75rem;
+}

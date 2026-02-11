@@ -3,20 +3,27 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: stretch;
-  margin: 1rem 10rem;
+  margin: 1rem 10rem 2rem 10rem;
   gap: .2rem;
 }
 
 .kanji-button {
   padding: .5rem;
-  border: 1px black solid;
+  border: 2px black solid;
   cursor: pointer;
   background-color: hsl(0, 0%, 36%);
   color: hsl(0, 0%, 80%);
   border-radius: .5rem;
 }
 
-.grade-button-container{
+.kanji-button:hover {
+  background-color: hsl(0, 0%, 26%);
+  border-color: hsl(207, 96%, 35%);
+  transform: scale(1.15);
+  transition: .1s;
+}
+
+.grade-button-container {
   display: flex;
   justify-content: space-around;
   gap: .5rem;
@@ -24,8 +31,9 @@
   max-width: 45rem;
 }
 
-.grade-button{
+.grade-button {
   background-color: hsl(0, 0%, 80%);
+  border: 2px solid transparent;
   width: 5rem;
   height: 2rem;
   border-radius: .5rem;
@@ -34,6 +42,17 @@
   font-weight: 700;
 }
 
-.grade-selected{
+.grade-button:hover {
+  background-color: hsl(0, 0%, 70%);
+  border: 2px solid hsl(207, 96%, 35%);
+  transform: scale(1.15);
+  transition: .1s;
+}
+
+.grade-selected {
   background-color: hsl(207, 96%, 35%);
+}
+
+.grade-selected:hover {
+  background-color: hsl(207, 96%, 30%);
 }
