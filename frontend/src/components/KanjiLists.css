@@ -18,10 +18,10 @@
 
 .grade-button-container{
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   gap: .5rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin: 1rem auto;
+  max-width: 45rem;
 }
 
 .grade-button{

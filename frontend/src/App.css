@@ -2,3 +2,10 @@ body {
   background-color: #242424;
   color: #FFFFFF;
 }
+
+.title{
+  font-family: "Inika", serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 4rem;
+}

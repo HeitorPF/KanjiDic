@@ -1,0 +1,20 @@
+.kanji-vocab-list{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin: 2rem auto;
+  max-width: 80vw;
+}
+
+.kanji-vocab-word{
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  list-style: none;
+  border: 2px solid hsl(207, 96%, 35%);
+  border-radius: .5rem;
+  padding: .5rem;
+}

@@ -1,0 +1,26 @@
+.kanji-info{
+  margin: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.img-stroke-order{
+  height: 15rem;
+  cursor: pointer;
+}
+
+.general-info{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  gap: .5rem;
+}
+
+.link-jisho{
+  color: hsl(207, 96%, 35%);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

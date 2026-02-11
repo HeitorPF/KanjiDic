@@ -66,9 +66,9 @@ function App() {
   return (
     <>
       <div>
-        <h1>Kanji dic</h1>
+        <h1 className='title'>Kanji dic</h1>
         <KanjiLists
-          search={search}
+          setKanjiInput={setKanjiInput}
         />
 
 
