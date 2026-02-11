@@ -1,6 +1,6 @@
 import './KanjiInput.css'
 
-export function KanjiInput({ searchKanjiInfo, searchKanjiVocab, searchKanjiPhrases, kanjiInput, setKanjiInput }) {
+export function KanjiInput({ kanjiInput, setKanjiInput, searchInfo, setSearchInfo, searchVocab, setSearchVocab, searchPhrases, setSearchPhrases, search }) {
 
   function saveKanjiInput(event) {
     setKanjiInput(event.target.value)
@@ -8,10 +8,16 @@ export function KanjiInput({ searchKanjiInfo, searchKanjiVocab, searchKanjiPhras
 
   return (
     <>
-      <button className='search-buttons' onClick={() => { searchKanjiInfo(kanjiInput) }}>Procurar info</button>
-      <button className='search-buttons' onClick={() => { searchKanjiVocab(kanjiInput) }}>Procurar Vocab</button>
-      <button className='search-buttons' onClick={() => { searchKanjiPhrases(kanjiInput) }}>Procurar Phrases</button>
-      <input className="kanjiInput"onChange={saveKanjiInput} value={kanjiInput} />
+      <div className='options-container'>
+        <button className={`options-button ${searchInfo ? 'active' : ''}`} onClick={() => { setSearchInfo(!searchInfo) }}>Info</button>
+        <button className={`options-button ${searchVocab ? 'active' : ''}`} onClick={() => { setSearchVocab(!searchVocab) }}>Vocab</button>
+        <button className={`options-button ${searchPhrases ? 'active' : ''}`} onClick={() => { setSearchPhrases(!searchPhrases) }}>Examples</button>
+      </div>
+
+
+      <input className="kanji-input" onChange={saveKanjiInput} value={kanjiInput} />
+      <button className='search-button' onClick={() => {search(kanjiInput)}}>Search</button>
+
     </>
   )
 }

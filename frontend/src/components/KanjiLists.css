@@ -3,11 +3,37 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: stretch;
-  padding: 2rem 5rem;
-  gap: 5px;
+  margin: 1rem 10rem;
+  gap: .2rem;
 }
-.kanji {
+
+.kanji-button {
   padding: .5rem;
   border: 1px black solid;
   cursor: pointer;
+  background-color: hsl(0, 0%, 36%);
+  color: hsl(0, 0%, 80%);
+  border-radius: .5rem;
+}
+
+.grade-button-container{
+  display: flex;
+  justify-content: center;
+  gap: .5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.grade-button{
+  background-color: hsl(0, 0%, 80%);
+  width: 5rem;
+  height: 2rem;
+  border-radius: .5rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.grade-selected{
+  background-color: hsl(207, 96%, 35%);
 }
