@@ -1,16 +1,7 @@
 import './KanjiInfo.css'
 
-export function KanjiInfo({ info }) {
+export function KanjiInfo({ info, copytoClipboard }) {
 
-  async function copytoClipboard(text) {
-    try {
-      await navigator.clipboard.writeText(text);
-      alert('Texto copiado para a área de transferência');
-    }
-    catch (err) {
-      console.log('Falha ao copiar texto:', err)
-    }
-  }
   if (info) {
 
     return (

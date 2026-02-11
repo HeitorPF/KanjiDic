@@ -34,6 +34,10 @@
   border-bottom: 1px solid hsl(207, 96%, 35%);
 }
 
+.transcriptions{
+  cursor: pointer;
+}
+
 rt{
   font-size: .75rem;
 }

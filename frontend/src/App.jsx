@@ -63,6 +63,16 @@ function App() {
     setIsLoading(false)
   }
 
+  async function copytoClipboard(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      alert('Texto copiado para a área de transferência');
+    }
+    catch (err) {
+      console.log('Falha ao copiar texto:', err)
+    }
+  }
+
   return (
     <>
       <div>
@@ -93,12 +103,14 @@ function App() {
               <>
                 <KanjiInfo
                   info={kanjiInfo}
+                  copytoClipboard={copytoClipboard}
                 />
                 <KanjiVocab
                   vocab={kanjiVocab}
                 />
                 <KanjiPhrases
                   phrases={kanjiPhrases}
+                  copytoClipboard={copytoClipboard}
                 />
               </>
             )
