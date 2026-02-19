@@ -8,7 +8,17 @@ const fs = require('fs');
 const app = express();
 const port = 3001;
 
-app.use(cors());
+const dominiosPermitidos = ['http://localhost:5173', 'https://SEU-SITE-AQUI.vercel.app'];
+
+app.use(cors({
+    origin: function (origin, callback) {
+        if (!origin || dominiosPermitidos.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Bloqueado pelo CORS'));
+        }
+    }
+}));
 
 const jisho = new JishoAPI();
 
