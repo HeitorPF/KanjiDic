@@ -24,6 +24,7 @@ const jisho = new JishoAPI();
 
 app.get('/api/ping', (req, res) => {
     res.status(200).json({ status: 'ativo' });
+    console.log('ping testado')
 });
 
 app.get('/api/kanji/:character/vocab', async (req, res) => { //KanjiAliveAPI
