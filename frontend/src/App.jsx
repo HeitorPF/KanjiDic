@@ -7,6 +7,7 @@ import { KanjiLists } from './components/KanjiLists'
 import { LoadingSpinner } from './components/LoadingSpinner'
 import { KanjiPhrases } from './components/KanjiPhrases'
 import { AnkiConnect } from './components/AnkiConnect'
+import { Analytics } from "@vercel/analytics/next"
 import './App.css'
 
 function App() {
