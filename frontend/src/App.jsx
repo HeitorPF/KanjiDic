@@ -24,7 +24,6 @@ function App() {
 
   const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
-
   useEffect(() => {
     const getDecks = async () => {
       const result = await ankiConnect('deckNames', 5)
@@ -107,8 +106,8 @@ function App() {
         <h1 className='title'>Kanji dic</h1>
         <KanjiLists
           setKanjiInput={setKanjiInput}
+          API_BASE_URL={API_BASE_URL}
         />
-
 
         <KanjiInput
           kanjiInput={kanjiInput}

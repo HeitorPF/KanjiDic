@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useState } from 'react'
 import './KanjiLists.css'
 
-export function KanjiLists({ setKanjiInput }) {
+export function KanjiLists({ setKanjiInput, API_BASE_URL }) {
   const [listKanjis, setListKanjis] = useState(null)
   const [gradeSelected, setGradeSelected] = useState(0)
 
@@ -12,7 +12,7 @@ export function KanjiLists({ setKanjiInput }) {
   }
 
   async function getListKanjis(category, level) {
-    const response = await axios.get(`http://localhost:3001/api/kanji/${category}/${level}`)
+    const response = await axios.get(`${API_BASE_URL}/api/kanji/${category}/${level}`)
     setListKanjis(response.data)
     setGradeSelected(level)
   }
