@@ -30,7 +30,7 @@ export function KanjiLists({ setKanjiInput, API_BASE_URL }) {
         <button className={`grade-button ${gradeSelected === 0 ? 'grade-selected' : ''}`} onClick={clearList}>Clear</button>
       </div>
       {listKanjis ? (
-        <div className='kanjisList'>
+        <div className='kanjis-list'>
           {listKanjis.map((kanji, index) => {
             return (
               <div key={index} className='kanji-button' onClick={() => { setKanjiInput(kanji) }}>{kanji}</div>

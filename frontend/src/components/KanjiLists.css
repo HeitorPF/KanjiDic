@@ -1,9 +1,10 @@
-.kanjisList {
+.kanjis-list {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: stretch;
-  margin: 1rem 10rem 2rem 10rem;
+  max-width: 80rem;
+  margin: auto;
+  margin-bottom: 1rem;
   gap: .2rem;
 }
 

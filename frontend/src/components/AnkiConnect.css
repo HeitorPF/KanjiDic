@@ -1,17 +1,15 @@
 .anki-connect {
   position: fixed;
-  bottom: 2rem; /* Distância do fundo */
-  right: 2rem;  /* Distância da direita */
-  z-index: 1000; /* Garante que fique acima de tudo */
-  
-  /* Estilização básica */
-  padding: 15px 25px;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+  font-size: 1.2rem;
+  padding: 1rem;
   background-color: hsl(0, 69%, 45%);
-  color: white;
+  color: hsl(0, 0%, 0%);
   border: none;
-  border-radius: 50px;
+  border-radius: .5rem;
   cursor: pointer;
-
 }
 
 .anki-connect:hover {
@@ -20,7 +18,7 @@
   transition: .1s;
 }
 
-.connected{
+.connected {
   background-color: hsl(158, 96%, 35%);
 }
 
