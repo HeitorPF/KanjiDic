@@ -68,7 +68,7 @@ function App() {
 
   async function search(kanji) {
     if (isKanji(kanji)) {
-      if (!(kanji === kanjiData.query)) {
+      if (!(kanji === kanjiData?.query)) {
         setIsLoading(true)
         await searchKanjiData(kanji)
         setIsLoading(false)
