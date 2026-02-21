@@ -11,38 +11,6 @@
   border: none;
 }
 
-.options-container {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.options-button {
-  color: hsl(0, 0%, 0%);
-  background-color: hsl(0, 69%, 45%);
-  height: 3rem;
-  width: 10rem;
-  border-radius: .5rem;
-  border: none;
-  font-size: 1.5rem;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-.options-button:hover {
-  background-color: hsl(0, 69%, 35%);
-  transform: scale(1.1);
-  transition: .1s;
-}
-
-.active {
-  background-color: hsl(158, 96%, 35%);
-}
-
-.active:hover {
-  background-color: hsl(158, 96%, 25%);
-}
-
 .search-button {
   background-color: hsl(207, 96%, 35%);
   height: 3rem;

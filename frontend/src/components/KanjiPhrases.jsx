@@ -1,38 +1,41 @@
-import { Fragment } from 'react'
 import './KanjiPhrases.css'
 
 export function KanjiPhrases({ phrases, copytoClipboard }) {
 
-  function convertToHTML(textString) {
-    return textString.replace(/\[(.*?)\]/g, (match, content) => {
-      // content será algo como "一緒|いっ|しょ"
-      const parts = content.split('|');
+  function formatTatoebaToAnkiDetailed(tatoebaString) {
+    if (!tatoebaString) return '';
 
-      const kanji = parts[0]; // "一緒"
-      const reading = parts.slice(1).join(''); // "いっしょ" (junta todas as leituras)
+    // Captura tudo que está entre [ ]
+    let ankiString = tatoebaString.replace(/\[(.*?)\]/g, (match, conteudo) => {
 
-      // Retorna com o espaço na frente, exigido pelo Anki
-      return `<ruby>${kanji}<rt>${reading}</rt></ruby>`;
-    }).trim().replace(/\s+/g, ' ');
+      // Divide o conteúdo usando o "pipe" (|)
+      // Ex: "機械|き|かい" vira ['機械', 'き', 'かい']
+      const pedacos = conteudo.split('|');
+
+      const palavra = pedacos[0]; // "機械"
+      const leituras = pedacos.slice(1); // ['き', 'かい']
+
+      // Verifica se temos exatamente uma leitura para cada caractere
+      if (palavra.length === leituras.length) {
+        // Mapeia cada kanji para sua leitura individual
+        const kanjisIndividuais = palavra.split('').map((kanji, index) => {
+          return ` ${kanji}[${leituras[index]}]`; // O espaço antes do kanji é essencial pro Anki
+        });
+
+        // Junta o array resultante em uma string
+        return kanjisIndividuais.join('');
+      } else {
+        // FALLBACK: Se não for 1-para-1 (ex: palavras com okurigana irregular)
+        // Ele junta as leituras e coloca na palavra inteira
+        return ` ${palavra}[${leituras.join('')}]`;
+      }
+    });
+
+    // Limpa espaços duplos que possam ter sido gerados e apara as bordas
+    return ankiString.replace(/\s+/g, ' ').trim();
   }
 
-  function convertToAnkiFormat(textString) {
-    if (!textString) return "";
-
-    return textString.replace(/\[(.*?)\]/g, (match, content) => {
-      // content será algo como "一緒|いっ|しょ"
-      const parts = content.split('|');
-
-      const kanji = parts[0]; // "一緒"
-      const reading = parts.slice(1).join(''); // "いっしょ" (junta todas as leituras)
-
-      // Retorna com o espaço na frente, exigido pelo Anki
-      return ` ${kanji}[${reading}]`;
-    }).trim().replace(/\s+/g, ' ');
-  };
-
   if (phrases) {
-    console.log(phrases)
     return (
       <div className='kanji-phrases'>
         <table className='kanji-phrases-table'>
@@ -49,8 +52,8 @@ export function KanjiPhrases({ phrases, copytoClipboard }) {
                 return (
                   <tr className='kanji-phrases-table-row' key={phrase.id}>
                     <td className='transcriptions' onClick={() => {
-                      copytoClipboard(convertToAnkiFormat(phrase.transcriptions[0].text))
-                    }} dangerouslySetInnerHTML={{ __html: convertToHTML(phrase.transcriptions[0].text) }} />
+                      copytoClipboard(formatTatoebaToAnkiDetailed(phrase.transcriptions[0].text))
+                    }} dangerouslySetInnerHTML={{ __html: phrase.transcriptions[0].html }} />
                     {/* <div className='grid-row transcriptions'>{phrase.transcriptions[0].text}</div> */}
                     <td>{phrase.translations[0].text}</td>
                   </tr>

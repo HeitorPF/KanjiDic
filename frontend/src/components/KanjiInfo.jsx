@@ -3,22 +3,21 @@ import './KanjiInfo.css'
 export function KanjiInfo({ info, copytoClipboard }) {
 
   if (info) {
-
     return (
       <>
-        <div className='kanji-info'>
+        <div className='kanji-info-container'>
           
-          <img className='img-stroke-order' onClick={() => { copytoClipboard(info.data.strokeOrderGifUri) }} src={info.data.strokeOrderGifUri} alt="Stroke order" />
+          <img className='img-stroke-order' onClick={() => { copytoClipboard(info.strokeOrderGifUri) }} src={info.strokeOrderGifUri} alt="Stroke order" />
 
-          <div className='general-info'>
-            <p>Kanji: {info.data.query}</p>
-            <p>Taught in: {info.data.taughtIn}</p>
-            <p>JLPT level: {info.data.jlptLevel}</p>
-            <p>Meaning: {info.data.meaning}</p>
-            <p>Kunyomi: {info.data.kunyomi.join('、 ')}</p>
-            <p>Onyomi: {info.data.onyomi.join('、 ')}</p>
-            <p>Radical: {info.data.radical.symbol} {info.data.radical.forms ? `(${info.data.radical.forms})` : ''} - {info.data.radical.meaning}</p>
-            <a className='link-jisho' target='_blank' href={info.data.uri}>Ver no Jisho.com</a>
+          <div className='kanji-info'>
+            <p>Kanji: {info.query}</p>
+            <p>Taught in: {info.taughtIn}</p>
+            <p>JLPT level: {info.jlptLevel}</p>
+            <p>Meaning: {info.meaning}</p>
+            <p>Kunyomi: {info.kunyomi.join('、 ')}</p>
+            <p>Onyomi: {info.onyomi.join('、 ')}</p>
+            <p>Radical: {info.radical.symbol} {info.radical.forms ? `(${info.radical.forms})` : ''} - {info.radical.meaning}</p>
+            <a className='link-jisho' target='_blank' href={info.uri}>Ver no Jisho.com</a>
           </div>
 
         </div>

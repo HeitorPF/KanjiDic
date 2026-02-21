@@ -1,15 +1,27 @@
-.kanji-vocab-list{
+.kanji-vocab-container{
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 80vw;
+}
+
+.kanji-vocab-source{
+  text-align: center;
+  margin-bottom: .5rem;
+}
+
+.kanji-vocab-list {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   gap: 2rem;
-  margin: 2rem auto;
-  max-width: 80vw;
+  margin: auto;
+  margin-bottom: 2rem;
 }
 
-.kanji-vocab-word{
+.kanji-vocab-word {
   display: flex;
   flex-direction: column;
   gap: .25rem;
@@ -17,4 +29,14 @@
   border: 2px solid hsl(207, 96%, 35%);
   border-radius: .5rem;
   padding: .5rem;
+}
+
+.error-vocab {
+  background-color: hsl(0, 69%, 45%);
+  width: 80vw;
+  min-width: 30rem;
+  margin: auto;
+  margin-bottom: 1rem;
+  padding: .5rem;
+  color: #FFF;
 }

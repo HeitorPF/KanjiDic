@@ -28,56 +28,6 @@ app.get('/api/ping', (req, res) => {
     console.log('ping testado')
 });
 
-app.get('/api/kanji/:character/vocab', async (req, res) => { //KanjiAliveAPI
-    const kanji = req.params.character;
-
-    try {
-        console.log(`Buscando vocabulário para kanji: ${kanji}`)
-        const apiKey = process.env.KANJIALIVE_API_KEY;
-        const kanjiAliveResponse = await fetch(`https://kanjialive-api.p.rapidapi.com/api/public/kanji/${encodeURIComponent(kanji)}`, {
-            method: 'GET',
-            headers: {
-                'x-rapidapi-key': apiKey,
-                'x-rapidapi-host': 'kanjialive-api.p.rapidapi.com'
-            }
-        })
-        const result = await kanjiAliveResponse.json()
-        res.json({ data: result.examples, query: kanji });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Erro ao buscar dados' });
-    }
-});
-
-app.get('/api/kanji/:character/info', async (req, res) => {
-    const kanji = req.params.character;
-
-    try {
-        console.log(`Buscando informações para kanji: ${kanji}`)
-        const result = await jisho.searchForKanji(kanji)
-
-        res.json({ data: result, query: kanji });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Erro ao buscar dados' });
-    }
-});
-
-app.get('/api/kanji/:character/phrases', async (req, res) => {
-    const kanji = req.params.character;
-
-    try {
-        console.log(`Buscando frases exemplo para kanji: ${kanji}`)
-        const tatoebaResponse = await fetch(`https://api.tatoeba.org/v1/sentences?lang=jpn&q=${encodeURIComponent(kanji)}&word_count=-10&trans%3Alang=eng&sort=relevance&limit=20&include=transcriptions`);
-        const result = await tatoebaResponse.json();
-
-        res.json({ data: result.data, query: kanji });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Erro ao buscar dados' });
-    }
-});
-
 app.get('/api/kanji/:category/:level', async (req, res) => {
     const category = req.params.category;
     const level = req.params.level;
@@ -110,13 +60,16 @@ function fetchJishoData(kanji) {
 async function fetchKanjiAliveData(kanji) {
     const apiKey = process.env.KANJIALIVE_API_KEY;
     const result = await axios.get(`https://kanjialive-api.p.rapidapi.com/api/public/kanji/${encodeURIComponent(kanji)}`, {
-            method: 'GET',
-            headers: {
-                'x-rapidapi-key': apiKey,
-                'x-rapidapi-host': 'kanjialive-api.p.rapidapi.com'
-            }
-        })
-    return result.data
+        method: 'GET',
+        headers: {
+            'x-rapidapi-key': apiKey,
+            'x-rapidapi-host': 'kanjialive-api.p.rapidapi.com'
+        }
+    })
+    return {
+        examples: result.data.examples,
+        source: 'KanjiAlive'
+    }
 }
 
 async function fetchTatoebaData(kanji) {
@@ -126,18 +79,52 @@ async function fetchTatoebaData(kanji) {
 
 app.get('/api/kanji/:character', async (req, res) => {
     const { character } = req.params;
+    console.log(`pesquisando por ${character}`)
 
-    const [jisho, kanjiAlive, tatoeba] = await Promise.allSettled([
+    const [jishoResult, kanjiAliveResult, tatoebaResult] = await Promise.allSettled([
         fetchJishoData(character),
         fetchKanjiAliveData(character),
         fetchTatoebaData(character)
     ]);
 
+    const jishoData = jishoResult.status === 'fulfilled' ? jishoResult.value : null;
+    let vocabData = kanjiAliveResult.status === 'fulfilled' ? kanjiAliveResult.value : [];
+    const tatoebaData = tatoebaResult.status === 'fulfilled' ? tatoebaResult.value : [];
+
+    // se não houver exemplos no kanjiAlive, substitui pelos exemplos do Jisho
+    if ((!vocabData.examples || vocabData.examples.length === 0) && jishoData) {
+        const jishoExamples = [];
+
+        // Verifica os exemplos de Kunyomi em 'jishoData'
+        if (jishoData.kunyomiExamples) {
+            jishoExamples.push(...jishoData.kunyomiExamples.map(ex => ({
+                japanese: ex.example,
+                meaning: { english: ex.meaning },
+                reading: ex.reading
+            })));
+        }
+
+        // Verifica os exemplos de Onyomi em 'jishoData'
+        if (jishoData.onyomiExamples) {
+            jishoExamples.push(...jishoData.onyomiExamples.map(ex => ({
+                japanese: ex.example,
+                meaning: { english: ex.meaning },
+                reading: ex.reading
+            })));
+        }
+
+        vocabData = {
+            examples: jishoExamples,
+            source: 'Jisho'
+        }
+    }
+
     res.json({
-        jisho: jisho.status === 'fulfilled' ? jisho.value : null,
-        kanjiAlive: kanjiAlive.status === 'fulfilled' ? kanjiAlive.value : null,
-        tatoeba: tatoeba.status === 'fulfilled' ? tatoeba.value : [],
-        errorInSomeSource: [jisho, kanjiAlive, tatoeba].some(r => r.status === 'rejected')
+        jisho: jishoData,
+        vocabData: vocabData,
+        tatoeba: tatoebaData,
+        query: character,
+        errorInSomeSource: [jishoResult, kanjiAliveResult, tatoebaResult].some(r => r.status === 'rejected')
     });
 });
 
