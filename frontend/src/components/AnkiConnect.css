@@ -10,6 +10,7 @@
   border: none;
   border-radius: .5rem;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .anki-connect:hover {
