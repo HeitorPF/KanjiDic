@@ -23,7 +23,6 @@ export function Home() {
     return regexKanji.test(string)
   }
 
-
   async function searchKanjiData(kanji) {
     const response = await axios.get(`${API_BASE_URL}/api/kanji/${kanji}`)
     setKanjiData(response.data)
