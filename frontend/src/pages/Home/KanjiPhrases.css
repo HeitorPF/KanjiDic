@@ -15,11 +15,7 @@
 }
 
 .kanji-phrases-table-row{
-  border-bottom: 2px solid transparent;
-}
-
-.kanji-phrases-table-row:hover{
-  border-bottom: 2px solid hsl(207, 96%, 35%);
+  border: 2px solid transparent;
 }
 
 .kanji-phrases-table-row rt{
@@ -29,6 +25,14 @@
 .kanji-phrases-table-row:hover rt{
   opacity: 1;
   transform: translateX(10px);
+}
+
+.kanji-phrases-table-selected{
+  border: 2px solid hsl(158, 96%, 35%);
+}
+
+:has(+ .kanji-phrases-table-selected){
+  border-bottom: 2px solid hsl(158, 96%, 35%);
 }
 
 .transcriptions{

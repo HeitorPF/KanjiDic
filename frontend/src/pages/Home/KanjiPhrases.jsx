@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import './KanjiPhrases.css'
 
 export function KanjiPhrases({ phrases, copytoClipboard }) {
+
+  const [phraseSelected, setPhraseSelected] = useState(null)
 
   function formatTatoebaToAnkiDetailed(tatoebaString) {
     if (!tatoebaString) return '';
@@ -47,14 +50,19 @@ export function KanjiPhrases({ phrases, copytoClipboard }) {
           </thead>
 
           <tbody>
-            {phrases.data.map((phrase) => {
+            {phrases.data.map((phrase, index) => {
               if (phrase.transcriptions[0]?.text && phrase.translations[0]?.text) {
                 return (
-                  <tr className='kanji-phrases-table-row' key={phrase.id}>
-                    <td className='transcriptions' onClick={() => {
-                      copytoClipboard(formatTatoebaToAnkiDetailed(phrase.transcriptions[0].text))
-                    }} dangerouslySetInnerHTML={{ __html: phrase.transcriptions[0].html }} />
-                    {/* <div className='grid-row transcriptions'>{phrase.transcriptions[0].text}</div> */}
+                  <tr
+                    className={`kanji-phrases-table-row ${phraseSelected === index ? 'kanji-phrases-table-selected' : ''}`}
+                    key={phrase.id}
+                    onClick={() => setPhraseSelected(index)}
+                  >
+                    <td
+                      className='transcriptions'
+                      onClick={() => { copytoClipboard(formatTatoebaToAnkiDetailed(phrase.transcriptions[0].text)) }}
+                      dangerouslySetInnerHTML={{ __html: phrase.transcriptions[0].html }}
+                    />
                     <td>{phrase.translations[0].text}</td>
                   </tr>
                 )
