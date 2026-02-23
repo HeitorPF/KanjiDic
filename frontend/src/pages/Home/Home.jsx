@@ -7,6 +7,7 @@ import { KanjiLists } from './KanjiLists'
 import { LoadingSpinner } from '../../components/LoadingSpinner'
 import { KanjiPhrases } from './KanjiPhrases'
 import { AnkiConnect } from '../../components/AnkiConnect'
+import './Home.css'
 
 export function Home({ fetchAnkiData }) {
   const [kanjiData, setKanjiData] = useState(null)

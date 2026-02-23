@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { Fragment, useEffect, useState } from "react"
 import { useNavigate } from "react-router"
 import { Modal } from "../../components/Modal"
 import "./AnkiSettings.css"
@@ -140,8 +140,8 @@ export function AnkiSettings({ isAnkiOpen, fetchAnkiData }) {
 
           <div className="field-names-container">
             {exportSettings.fieldMappings.map((mappingItem) => (
-              <div key={mappingItem.ankiField}>
-                <label htmlFor={`field-select-${mappingItem.ankiField}`}>
+              <Fragment key={mappingItem.ankiField}>
+                <label htmlFor={`field-select-${mappingItem.ankiField}`} className="field-names-label">
                   {mappingItem.ankiField}:
                 </label>
 
@@ -156,7 +156,7 @@ export function AnkiSettings({ isAnkiOpen, fetchAnkiData }) {
                     </option>
                   ))}
                 </select>
-              </div>
+              </Fragment>
             ))}
           </div>
         </div>
