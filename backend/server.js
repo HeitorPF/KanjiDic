@@ -52,8 +52,13 @@ app.get('/api/kanji/:category/:level', async (req, res) => {
     }
 })
 
-function fetchJishoData(kanji) {
-    const result = jisho.searchForKanji(kanji)
+async function fetchJishoData(kanji) {
+    const result = await jisho.searchForKanji(kanji)
+    result.onyomi = result.onyomi.join('、 ')
+    result.kunyomi = result.kunyomi.join('、 ')
+    result.radical = `${result.radical.symbol} ${result.radical.forms ? `(${result.radical.forms})` : ''} - ${result.radical.meaning}`
+    result.parts = result.parts.join('、 ')
+
     return result
 }
 

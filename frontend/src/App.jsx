@@ -5,11 +5,21 @@ import { Routes, Route } from 'react-router'
 import { useState, useEffect } from 'react'
 import { AnkiConnect } from './components/AnkiConnect'
 import { KanjiDicHeader } from './components/KanjiDicHeader'
+import axios from 'axios'
 import './App.css'
 
 function App() {
 
   const [isAnkiOpen, setIsAnkiOpen] = useState(false)
+
+  async function fetchAnkiData(action, version, params = {}) {
+    const response = await axios.post('http://127.0.0.1:8765', {
+      action: action,
+      version: version,
+      params: params
+    });
+    return response.data.result
+  }
 
   async function checkAnkiStatus() {
     try {
@@ -35,17 +45,28 @@ function App() {
   }, [isAnkiOpen])
 
 
+
   return (
     <>
       <title>KanjiDic</title>
       <KanjiDicHeader />
 
       <Routes>
-        <Route index element={<Home />} />
-        <Route path='/ankiSettings' element={<AnkiSettings isAnkiOpen={isAnkiOpen}/>} />
+        <Route index element={
+          <Home
+            fetchAnkiData={fetchAnkiData}
+          />} />
+        <Route path='/ankiSettings' element={
+          <AnkiSettings
+            isAnkiOpen={isAnkiOpen}
+            fetchAnkiData={fetchAnkiData}
+          />} />
       </Routes>
 
-      <AnkiConnect isAnkiOpen={isAnkiOpen}/>
+      <AnkiConnect
+        isAnkiOpen={isAnkiOpen}
+      />
+
       <Analytics />
     </>
   )

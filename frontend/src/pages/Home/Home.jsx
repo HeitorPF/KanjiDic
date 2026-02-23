@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { useState } from 'react'
-import { KanjiDicHeader } from '../../components/KanjiDicHeader'
 import { KanjiInput } from './KanjiInput'
 import { KanjiInfo } from './KanjiInfo'
 import { KanjiVocab } from './KanjiVocab'
@@ -9,7 +8,7 @@ import { LoadingSpinner } from '../../components/LoadingSpinner'
 import { KanjiPhrases } from './KanjiPhrases'
 import { AnkiConnect } from '../../components/AnkiConnect'
 
-export function Home() {
+export function Home({ fetchAnkiData }) {
   const [kanjiData, setKanjiData] = useState(null)
 
   const [isLoading, setIsLoading] = useState(false)
@@ -50,6 +49,63 @@ export function Home() {
     }
   }
 
+  function adjustingParams() {
+    const exportAnkiSettings = JSON.parse(localStorage.getItem('ankiExportSettings'))
+    let ankiFields = {}
+    exportAnkiSettings.fieldMappings.forEach((mapping) => {
+      if (!mapping.ankiField) {
+        ankiFields[mapping.ankiField] = ''
+        return
+      }
+
+      const value = mapping.appField.split('.').reduce((objetoAtual, propriedadeAtual) => {
+        return objetoAtual && objetoAtual[propriedadeAtual] !== undefined
+          ? objetoAtual[propriedadeAtual]
+          : "";
+      }, kanjiData)
+
+      ankiFields[mapping.ankiField] = value
+    })
+    return ankiFields
+  }
+
+  async function addNote() {
+    const exportAnkiSettings = JSON.parse(localStorage.getItem('ankiExportSettings'))
+
+    if(!exportAnkiSettings){
+      alert('You need to configure cards template first')
+    }
+
+    const fields = adjustingParams()
+    const params = {
+      notes: [
+        {
+          "deckName": exportAnkiSettings.deck,
+          "modelName": exportAnkiSettings.model,
+          "fields": fields,
+          "tags": []
+        }
+      ]
+    }
+
+    const verify = await fetchAnkiData('canAddNotesWithErrorDetail', 6, params)
+    console.log(verify)
+
+    if (verify[0].canAdd === true) {
+      const result = await fetchAnkiData('addNotes', 6, params)
+      if (result[0]) {
+        alert('Card created with sucess!')
+      }
+      else {
+        alert('Ocurred an error')
+      }
+    }
+    else{
+      alert(`Error: ${verify[0].error}`)
+    }
+  }
+
+
   return (
     <>
       <div>
@@ -70,6 +126,10 @@ export function Home() {
 
         {!isLoading && kanjiData && (
           <>
+            <div
+              className='add-note-btn'
+              onClick={addNote}
+            >Add Note</div>
             <KanjiInfo
               info={kanjiData.jisho}
               copytoClipboard={copytoClipboard}

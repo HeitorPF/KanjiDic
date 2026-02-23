@@ -14,9 +14,9 @@ export function KanjiInfo({ info, copytoClipboard }) {
             <p>Taught in: {info.taughtIn}</p>
             <p>JLPT level: {info.jlptLevel}</p>
             <p>Meaning: {info.meaning}</p>
-            <p>Kunyomi: {info.kunyomi.join('、 ')}</p>
-            <p>Onyomi: {info.onyomi.join('、 ')}</p>
-            <p>Radical: {info.radical.symbol} {info.radical.forms ? `(${info.radical.forms})` : ''} - {info.radical.meaning}</p>
+            <p>Kunyomi: {info.kunyomi}</p>
+            <p>Onyomi: {info.onyomi}</p>
+            <p>Radical: {info.radical}</p>
             <a className='link-jisho' target='_blank' href={info.uri}>Ver no Jisho.com</a>
           </div>
 

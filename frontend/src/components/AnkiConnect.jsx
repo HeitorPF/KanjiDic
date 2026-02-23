@@ -3,8 +3,6 @@ import './AnkiConnect.css'
 
 export function AnkiConnect({ isAnkiOpen }) {
 
-
-
   return (
     <Link
       className={`anki-connect ${isAnkiOpen ? 'connected' : ''}`}
