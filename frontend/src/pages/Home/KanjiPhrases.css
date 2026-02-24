@@ -16,6 +16,7 @@
 
 .kanji-phrases-table-row{
   border: 2px solid transparent;
+  cursor: pointer;
 }
 
 .kanji-phrases-table-row rt{
@@ -24,11 +25,14 @@
 
 .kanji-phrases-table-row:hover rt{
   opacity: 1;
-  transform: translateX(10px);
 }
 
 .kanji-phrases-table-selected{
   border: 2px solid hsl(158, 96%, 35%);
+}
+
+.kanji-phrases-table-selected rt{
+  opacity: 1;
 }
 
 :has(+ .kanji-phrases-table-selected){
@@ -36,11 +40,14 @@
 }
 
 .transcriptions{
-  cursor: pointer;
   font-family: "Noto Sans JP", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
+}
+
+th{
+  padding: .5rem;
 }
 
 td{

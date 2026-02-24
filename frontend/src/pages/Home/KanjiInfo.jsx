@@ -1,13 +1,17 @@
 import './KanjiInfo.css'
 
-export function KanjiInfo({ info, copytoClipboard }) {
+export function KanjiInfo({ info }) {
 
   if (info) {
     return (
       <>
         <div className='kanji-info-container'>
-          
-          <img className='img-stroke-order' onClick={() => { copytoClipboard(info.strokeOrderGifUri) }} src={info.strokeOrderGifUri} alt="Stroke order" />
+
+          <img
+            className='img-stroke-order'
+            src={info.strokeOrderGifUri}
+            alt="Stroke order"
+          />
 
           <div className='kanji-info'>
             <p>Kanji: {info.query}</p>

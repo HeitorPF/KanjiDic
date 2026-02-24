@@ -16,9 +16,9 @@ const APP_DATA_OPTIONS = [
   { value: "jisho.onyomi", label: "Onyomi reading" },
   { value: "jisho.kunyomi", label: "Kunyomi reading" },
   { value: "jisho.newspaperFrequencyRank", label: "Frequency" },
-  { value: "examples", label: "Vocabulary" },
+  { value: "vocabulary", label: "Vocabulary" },
   { value: "sentenceExample", label: "Sentence example" },
-  { value: "translationSentenceExample", label: " Tanslations sentence example" },
+  { value: "sentenceExampleTranslation", label: " Tanslations sentence example" },
 ]
 
 export function AnkiSettings({ isAnkiOpen, fetchAnkiData }) {

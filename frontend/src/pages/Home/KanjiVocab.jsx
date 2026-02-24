@@ -1,6 +1,23 @@
 import './KanjiVocab.css'
 
-export function KanjiVocab({ vocab, query }) {
+export function KanjiVocab({ vocab, query, vocabSelected, setVocabSelected }) {
+
+  function selectVocab(index) {
+    let array = vocabSelected
+    let find = false
+    array = array.filter((value) => {
+      if (value === index) {
+        find = true
+        return false
+      }
+      return true
+    })
+    if (!find) {
+      array.push(index)
+    }
+    setVocabSelected(array)
+  }
+
   if (vocab.examples) {
     return (
       <div className='kanji-vocab-container'>
@@ -8,7 +25,13 @@ export function KanjiVocab({ vocab, query }) {
         <ul className='kanji-vocab-list'>
           {vocab.examples.map((word, index) => {
             return (
-              <li className='kanji-vocab-word' key={index}>
+              <li
+                className={`kanji-vocab-word ${vocabSelected.includes(index) ? 'kanji-vocab-word-selected' : ''}`}
+                key={index}
+                onClick={() => {
+                  selectVocab(index)
+                }}
+              >
                 <p>{word.japanese}</p>
                 <p>{word.meaning.english}</p>
               </li>
