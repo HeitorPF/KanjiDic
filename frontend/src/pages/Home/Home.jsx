@@ -10,7 +10,7 @@ import { KanjiPhrases } from './KanjiPhrases'
 import { AnkiConnect } from '../../components/AnkiConnect'
 import './Home.css'
 
-export function Home({ fetchAnkiData }) {
+export function Home({ fetchAnkiData, isAnkiOpen }) {
   const [kanjiData, setKanjiData] = useState(null)
 
   const [phraseSelected, setPhraseSelected] = useState(null)
@@ -182,10 +182,13 @@ export function Home({ fetchAnkiData }) {
 
         {!isLoading && kanjiData && (
           <>
-            <div
-              className='add-note-btn'
-              onClick={addNote}
-            >Add Note</div>
+            {
+              isAnkiOpen && <div
+                className='add-note-btn'
+                onClick={addNote}
+              >Add Note</div>
+            }
+
             <KanjiInfo
               info={kanjiData.jisho}
             />
@@ -203,7 +206,6 @@ export function Home({ fetchAnkiData }) {
           </>
         )}
       </div>
-      <AnkiConnect />
     </>
   )
 }

@@ -1,11 +1,11 @@
 .kanjis-list {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(2.5rem, 1fr)); 
+  gap: .5rem;
   flex-wrap: wrap;
   max-width: 80rem;
   margin: auto;
   margin-bottom: 1rem;
-  gap: .2rem;
 }
 
 .kanji-button {
@@ -15,6 +15,7 @@
   background-color: hsl(0, 0%, 36%);
   color: hsl(0, 0%, 80%);
   border-radius: .5rem;
+  font-size: 1.2rem;
 }
 
 .kanji-button:hover {

@@ -11,6 +11,7 @@ import './App.css'
 function App() {
 
   const [isAnkiOpen, setIsAnkiOpen] = useState(false)
+  const [sideBar, setSideBar] = useState(false)
 
   async function fetchAnkiData(action, version, params = {}) {
     const response = await axios.post('http://127.0.0.1:8765', {
@@ -47,28 +48,63 @@ function App() {
 
 
   return (
-    <>
+    <div className='app'>
       <title>KanjiDic</title>
-      <KanjiDicHeader />
 
-      <Routes>
-        <Route index element={
-          <Home
-            fetchAnkiData={fetchAnkiData}
-          />} />
-        <Route path='/ankiSettings' element={
-          <AnkiSettings
+      <div className={`side-bar ${sideBar ? `open` : ''}`}>
+        <div className='side-bar-btn' onClick={() => { setSideBar(!sideBar) }}>&#9776;</div>
+
+        <div className={`side-bar-content ${sideBar ? 'side-bar-content-visible' : ''}`}>
+          <div className='logar'>
+            <div className='email-form'>
+              <label htmlFor="email">Email:</label>
+              <input className='email-input' type="email" id="email" name="email" placeholder="Your email..." />
+            </div>
+
+            <div className='password-form'>
+              <label htmlFor="password">Password:</label>
+              <div className='password-input'>
+                <input type="password" id="password" name="password" placeholder="Your password.." />
+                <button>O</button>
+              </div>
+            </div>
+
+            <div className='logar-buttons'>
+              <input type="submit" value='Log In' />
+              <button>Create Account</button>
+            </div>
+
+          </div>
+
+          <AnkiConnect
             isAnkiOpen={isAnkiOpen}
-            fetchAnkiData={fetchAnkiData}
-          />} />
-      </Routes>
+          />
+        </div>
 
-      <AnkiConnect
-        isAnkiOpen={isAnkiOpen}
-      />
+      </div>
 
-      <Analytics />
-    </>
+      <main>
+        <KanjiDicHeader />
+
+        <Routes>
+          <Route index element={
+            <Home
+              fetchAnkiData={fetchAnkiData}
+              isAnkiOpen={isAnkiOpen}
+            />} />
+          <Route path='/ankiSettings' element={
+            <AnkiSettings
+              isAnkiOpen={isAnkiOpen}
+              fetchAnkiData={fetchAnkiData}
+            />} />
+        </Routes>
+
+
+
+        <Analytics />
+      </main>
+
+    </div>
   )
 }
 

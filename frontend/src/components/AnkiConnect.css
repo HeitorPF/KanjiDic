@@ -1,8 +1,8 @@
 .anki-connect {
-  position: fixed;
+  /* position: fixed;
   bottom: 2rem;
   right: 2rem;
-  z-index: 1000;
+  z-index: 1000; */
   font-size: 1.2rem;
   padding: 1rem;
   background-color: hsl(0, 69%, 45%);
@@ -15,8 +15,6 @@
 
 .anki-connect:hover {
   background-color: hsl(0, 69%, 35%);
-  transform: scale(1.1);
-  transition: .1s;
 }
 
 .connected {
