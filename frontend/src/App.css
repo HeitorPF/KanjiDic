@@ -17,12 +17,18 @@ main {
 }
 
 .side-bar{
-  width: 5rem;
-  background-color: #333;
+  width: 0;
+  background-color: hsl(0, 0%, 20%);
   height: 100vh;
-  transition: width 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
+  transition: .3s;
+  overflow-x: hidden;
+  white-space: nowrap;
+}
+
+.open{
+  width: 30rem;
 }
 
 .side-bar-content{
@@ -31,12 +37,6 @@ main {
   justify-content: space-between;
   height: 100%;
   margin-top: 2rem;
-  visibility: hidden;
-}
-
-.side-bar-content-visible{
-  visibility: visible;
-  transition:  .5s;
 }
 
 .side-bar-btn{
@@ -48,10 +48,6 @@ main {
 }
 .side-bar-btn:hover{
   border: 2px solid hsl(207, 96%, 35%);
-}
-
-.open{
-  width: 20rem;
 }
 
 .logar{

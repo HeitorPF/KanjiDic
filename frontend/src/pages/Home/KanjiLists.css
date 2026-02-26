@@ -1,15 +1,16 @@
-.kanjis-list {
+.kanjis-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(2.5rem, 1fr)); 
-  gap: .5rem;
+  grid-template-columns: repeat(auto-fill, minmax(2rem, 1fr)); 
+  gap: .2rem;
   flex-wrap: wrap;
-  max-width: 80rem;
+  width: 80%;
   margin: auto;
   margin-bottom: 1rem;
 }
 
 .kanji-button {
-  padding: .5rem;
+  width: 2rem;
+  height: 2rem;
   border: 2px black solid;
   cursor: pointer;
   background-color: hsl(0, 0%, 36%);
@@ -22,7 +23,7 @@
   background-color: hsl(0, 0%, 26%);
   border-color: hsl(207, 96%, 35%);
   transform: scale(1.15);
-  transition: .1s;
+  transition: .3s;
 }
 
 .grade-button-container {
