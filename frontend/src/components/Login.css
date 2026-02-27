@@ -1,11 +1,12 @@
-.logar {
+.login {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  flex: 1;
 }
 
 .login-title {
   font-size: 2.5rem;
+  text-align: center;
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
@@ -49,6 +50,7 @@
   border-bottom-right-radius: .5rem;
   border-top-right-radius: .5rem;
   cursor: pointer;
+  background-color: #DDD;
 }
 
 .login-buttons {
@@ -62,13 +64,17 @@
 }
 
 .form-btn {
-  background-color: hsl(207, 96%, 35%);
+  display: flex;
+  background-color: #0462af;
   height: 3rem;
   border-radius: .5rem;
   font-size: 1.3rem;
   color: #000;
   border: none;
   cursor: pointer;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: .5rem;
 }
 
 .email-label,

@@ -6,6 +6,7 @@
   width: 80%;
   margin: auto;
   margin-bottom: 1rem;
+  margin-top: .5rem;
 }
 
 .kanji-button {
@@ -17,6 +18,7 @@
   color: hsl(0, 0%, 80%);
   border-radius: .5rem;
   font-size: 1.2rem;
+  text-align: center;
 }
 
 .kanji-button:hover {

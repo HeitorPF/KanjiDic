@@ -1,5 +1,7 @@
 .anki-settings-page{
   margin-top: 1rem;
+  text-align: center;
+  flex: 1;
 }
 
 select{

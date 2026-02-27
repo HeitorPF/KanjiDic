@@ -9,18 +9,19 @@ export function Login() {
     password: ''
   })
 
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false)
+
   function handleChange(event) {
-    const { name, value } = event.target; // Descobre QUEM o usuário digitou e O QUE ele digitou
+    const { name, value } = event.target;
 
     setUser({
-      ...user, // Copia tudo que já estava preenchido antes
-      [name]: value  // Atualiza apenas o campo específico com o valor novo
+      ...user,
+      [name]: value 
     });
   }
 
   return (
-    <div className='logar'>
-
+    <div className='login'>
       <h2 className="login-title">Login</h2>
 
       <div className='email-form'>
@@ -44,38 +45,49 @@ export function Login() {
         <label
           className="password-label"
           htmlFor="password"
-        >Password:</label>
+        >
+          Password:
+        </label>
+
         <div className='password-input-container'>
           <input
             className="password-input"
-            type="password"
+            type={isPasswordVisible ? 'text' : 'password'}
             id="password"
             name="password"
-            placeholder="Your password.."
+            placeholder="Your password..."
             onChange={handleChange}
           />
           <button
-            className="password-hide"
+            className="password-hide material-symbols-outlined"
+            onClick={() => { setIsPasswordVisible(!isPasswordVisible) }}
           >
-            O
+            {isPasswordVisible ? 'visibility' : 'visibility_off'}
           </button>
         </div>
       </div>
 
       <div className='login-buttons'>
-        <input
+        <button
           className="form-btn"
           type="submit"
           value='Log In'
-        />
+        >
+          Login
+          <span className="material-symbols-outlined">
+            login
+          </span>
+        </button>
         <button
           className="form-btn"
           onClick={() => { console.log(user) }}
         >
           Create Account
+          <span className="material-symbols-outlined">
+            person_add
+          </span>
         </button>
       </div>
-
     </div>
   )
 }

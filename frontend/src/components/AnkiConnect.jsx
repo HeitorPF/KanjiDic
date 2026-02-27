@@ -7,6 +7,9 @@ export function AnkiConnect({ isAnkiOpen }) {
     <Link
       className={`anki-connect ${isAnkiOpen ? 'connected' : ''}`}
       to='/ankiSettings'>
+      <span className='material-symbols-outlined settings-icon'>
+        settings
+      </span>
       Configure Anki
     </ Link>
   )

@@ -1,9 +1,15 @@
+import loading from '/loading.svg'
 import './LoadingSpinner.css'
 
-export function LoadingSpinner({kanjiInput}) {
+export function LoadingSpinner({ kanjiInput }) {
   return (
-    <div style={{padding: '20px', fontWeight: 'bold'}}>
-      Pesquisando por {kanjiInput}... ⏳
+    <div className='loading'>
+      <div className='loading-kanji'>{kanjiInput}</div>
+      <img
+        className='img-loading'
+        src={loading}
+        alt=""
+      />
     </div>
   )
 }

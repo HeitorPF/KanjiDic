@@ -1,0 +1,19 @@
+.loading{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.loading-kanji{
+  position: absolute;
+  margin: auto;
+  font-size: 3rem;
+}
+
+.img-loading{
+  position: absolute;
+  margin: auto;
+  height: 10rem;
+}

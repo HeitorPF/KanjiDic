@@ -49,14 +49,9 @@ function App() {
 
   return (
     <div className='app'>
-      <title>KanjiDic</title>
-
       <div className={`side-bar ${sideBar ? `open` : ''}`}>
-
         <div className={`side-bar-content ${sideBar ? 'side-bar-content-visible' : ''}`}>
-
           <Login />
-
           <AnkiConnect
             isAnkiOpen={isAnkiOpen}
           />
@@ -65,10 +60,12 @@ function App() {
       </div>
 
       <main>
-        <div className='side-bar-btn-container'>
-          <div className='side-bar-btn' onClick={() => { setSideBar(!sideBar) }}>&#9776;</div>
-          <div className='side-bar-btn-filler'></div>
-        </div>
+          <div
+            className='side-bar-btn material-symbols-outlined'
+            onClick={() => { setSideBar(!sideBar) }}
+          >
+            {sideBar ? 'arrow_back' : 'menu'}
+          </div>
 
         <KanjiDicHeader />
 

@@ -8,8 +8,20 @@ export function KanjiInput({ kanjiInput, setKanjiInput, search }) {
 
   return (
     <>
-      <input placeholder='犬' className="kanji-input" onChange={saveKanjiInput} value={kanjiInput} />
-      <button className='search-button' onClick={() => { search(kanjiInput) }}>Search</button>
+      <div className='search'>
+        <span
+          className="material-symbols-outlined search-icon"
+          onClick={() => { search(kanjiInput) }}
+        >
+          search
+        </span>
+        <input
+          placeholder='犬'
+          className="kanji-input"
+          onChange={saveKanjiInput}
+          value={kanjiInput}
+        />
+      </div>
     </>
   )
 }

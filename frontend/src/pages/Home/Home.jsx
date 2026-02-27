@@ -162,7 +162,7 @@ export function Home({ fetchAnkiData, isAnkiOpen }) {
   }
 
   return (
-    <div>
+    <div className='home-container'>
       <KanjiLists
         setKanjiInput={setKanjiInput}
         API_BASE_URL={API_BASE_URL}

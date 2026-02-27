@@ -139,8 +139,8 @@ export function AnkiSettings({ isAnkiOpen, fetchAnkiData }) {
           </div>
 
           <div className="field-names-container">
-            {exportSettings.fieldMappings.map((mappingItem) => (
-              <Fragment key={mappingItem.ankiField}>
+            {exportSettings.fieldMappings.map((mappingItem, index) => (
+              <Fragment key={index}>
                 <label htmlFor={`field-select-${mappingItem.ankiField}`} className="field-names-label">
                   {mappingItem.ankiField}:
                 </label>
