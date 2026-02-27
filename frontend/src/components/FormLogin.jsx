@@ -6,6 +6,8 @@ export function FormLogin({ user, setUser, setScreen }) {
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
+  const VITE_API_URL = import.meta.env.VITE_API_URL
+
   function handleChange(event) {
     const { name, value } = event.target;
 
@@ -17,7 +19,7 @@ export function FormLogin({ user, setUser, setScreen }) {
 
   async function login() {
     try {
-      const resposta = await axios.post('http://localhost:3001/api/login', { email: user.email, password: user.password })
+      const resposta = await axios.post(`${VITE_API_URL}/api/login`, { email: user.email, password: user.password })
       const dados = resposta.data
       console.log(dados)
     } catch (e) {

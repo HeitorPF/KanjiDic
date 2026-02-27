@@ -18,7 +18,7 @@ export function Home({ fetchAnkiData, isAnkiOpen }) {
   const [isLoading, setIsLoading] = useState(false)
   const [kanjiInput, setKanjiInput] = useState('')
 
-  const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+  const VITE_API_URL = import.meta.env.VITE_API_URL
 
   function isKanji(string) {
     string = string.trim()
@@ -27,7 +27,7 @@ export function Home({ fetchAnkiData, isAnkiOpen }) {
   }
 
   async function searchKanjiData(kanji) {
-    const response = await axios.get(`${API_BASE_URL}/api/kanji/${kanji}`)
+    const response = await axios.get(`${VITE_API_URL}/api/kanji/${kanji}`)
     setKanjiData(response.data)
   }
 
@@ -165,7 +165,6 @@ export function Home({ fetchAnkiData, isAnkiOpen }) {
     <div className='home-container'>
       <KanjiLists
         setKanjiInput={setKanjiInput}
-        API_BASE_URL={API_BASE_URL}
       />
 
       <KanjiInput
