@@ -22,7 +22,7 @@
 }
 
 .connected {
-  background-color: hsl(158, 96%, 35%);
+  background-color: #04af70;
 }
 
 .connected:hover {

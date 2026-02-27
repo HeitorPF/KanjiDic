@@ -1,13 +1,8 @@
 import { useState } from "react"
-import './Login.css'
+import axios from "axios";
+import './Form.css'
 
-export function Login() {
-
-  const [user, setUser] = useState({
-    name: '',
-    email: '',
-    password: ''
-  })
+export function FormRegister({ user, setUser, setScreen }) {
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
@@ -16,13 +11,42 @@ export function Login() {
 
     setUser({
       ...user,
-      [name]: value 
+      [name]: value
     });
   }
 
+  async function register() {
+    try {
+      const resposta = await axios.post('http://localhost:3001/api/register', { name: user.name, email: user.email, password: user.password })
+
+      const dados = resposta.data
+      console.log(dados)
+    }catch(e){
+      alert(`${e.response.data.message}`)
+    }
+  }
+
   return (
-    <div className='login'>
-      <h2 className="login-title">Login</h2>
+    <div className='form'>
+      <h2 className="form-title">Register</h2>
+
+      <div className='name-form'>
+        <label
+          className="name-label"
+          htmlFor="name"
+        >
+          Name:
+        </label>
+        <input
+          className='name-input'
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Your name..."
+          onChange={handleChange}
+          value={user.name}
+        />
+      </div>
 
       <div className='email-form'>
         <label
@@ -38,6 +62,7 @@ export function Login() {
           name="email"
           placeholder="Your email..."
           onChange={handleChange}
+          value={user.email}
         />
       </div>
 
@@ -57,6 +82,7 @@ export function Login() {
             name="password"
             placeholder="Your password..."
             onChange={handleChange}
+            value={user.password}
           />
           <button
             className="password-hide material-symbols-outlined"
@@ -67,25 +93,24 @@ export function Login() {
         </div>
       </div>
 
-      <div className='login-buttons'>
+      <button
+        className="form-btn"
+        type="submit"
+        onClick={register}
+      >
+        Register
+        <span className="material-symbols-outlined">
+          person_add
+        </span>
+      </button>
+
+      <div className="form-link">
+        Already have an account?
         <button
-          className="form-btn"
-          type="submit"
-          value='Log In'
+          className="form-link-btn"
+          onClick={() => { setScreen('login') }}
         >
-          Login
-          <span className="material-symbols-outlined">
-            login
-          </span>
-        </button>
-        <button
-          className="form-btn"
-          onClick={() => { console.log(user) }}
-        >
-          Create Account
-          <span className="material-symbols-outlined">
-            person_add
-          </span>
+          Sign in!
         </button>
       </div>
     </div>

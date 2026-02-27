@@ -1,10 +1,10 @@
-.login {
+.form {
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
-.login-title {
+.form-title {
   font-size: 2.5rem;
   text-align: center;
   margin-top: 2rem;
@@ -12,7 +12,8 @@
 }
 
 .email-form,
-.password-form {
+.password-form,
+.name-form {
   width: 90%;
   margin: auto;
   margin-top: 1rem;
@@ -21,7 +22,8 @@
 }
 
 .email-input,
-.password-input {
+.password-input,
+.name-input {
   display: block;
   width: 100%;
   height: 2rem;
@@ -53,31 +55,45 @@
   background-color: #DDD;
 }
 
-.login-buttons {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  width: 90%;
-  margin: auto;
-  margin-top: 2rem;
-  gap: 1rem;
-
-}
-
 .form-btn {
   display: flex;
+  gap: .5rem;
   background-color: #0462af;
   height: 3rem;
+  width: fit-content;
+  margin: auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   border-radius: .5rem;
   font-size: 1.3rem;
   color: #000;
   border: none;
   cursor: pointer;
-  justify-content: space-evenly;
   align-items: center;
   padding: .5rem;
 }
 
+.name-label,
 .email-label,
 .password-label {
   font-size: 1.5rem;
+}
+
+.form-link {
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.form-link-btn {
+  background-color: transparent;
+  color: #0462af;
+  border: none;
+  font-size: 1.2rem;
+  margin-left: .5rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.form-link-btn:hover {
+  color: #04af70;
 }

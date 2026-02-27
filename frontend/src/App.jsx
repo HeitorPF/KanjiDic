@@ -5,7 +5,8 @@ import { Routes, Route } from 'react-router'
 import { useState, useEffect } from 'react'
 import { AnkiConnect } from './components/AnkiConnect'
 import { KanjiDicHeader } from './components/KanjiDicHeader'
-import { Login } from './components/LogIn'
+import { FormLogin } from './components/FormLogin'
+import { FormRegister } from './components/FormRegister'
 import axios from 'axios'
 import './App.css'
 
@@ -13,7 +14,8 @@ function App() {
 
   const [isAnkiOpen, setIsAnkiOpen] = useState(false)
   const [sideBar, setSideBar] = useState(false)
-
+  const [screen, setScreen] = useState('register')
+  const [user, setUser] = useState({})
 
   async function fetchAnkiData(action, version, params = {}) {
     const response = await axios.post('http://127.0.0.1:8765', {
@@ -47,11 +49,41 @@ function App() {
 
   }, [isAnkiOpen])
 
+  function renderScreen() {
+    switch (screen) {
+      case 'login':
+        return (
+          <FormLogin
+            user={user}
+            setUser={setUser}
+            setScreen={setScreen}
+          />
+        )
+      case 'register':
+        return (
+          <FormRegister
+            user={user}
+            setUser={setUser}
+            setScreen={setScreen}
+          />
+        )
+
+      default:
+        return (
+          <Login
+            user={user}
+            setUser={setUser}
+            setScreen={setScreen}
+          />
+        )
+    }
+  }
+
   return (
     <div className='app'>
       <div className={`side-bar ${sideBar ? `open` : ''}`}>
         <div className={`side-bar-content ${sideBar ? 'side-bar-content-visible' : ''}`}>
-          <Login />
+          {renderScreen()}
           <AnkiConnect
             isAnkiOpen={isAnkiOpen}
           />
@@ -60,12 +92,12 @@ function App() {
       </div>
 
       <main>
-          <div
-            className='side-bar-btn material-symbols-outlined'
-            onClick={() => { setSideBar(!sideBar) }}
-          >
-            {sideBar ? 'arrow_back' : 'menu'}
-          </div>
+        <div
+          className='side-bar-btn material-symbols-outlined'
+          onClick={() => { setSideBar(!sideBar) }}
+        >
+          {sideBar ? 'arrow_back' : 'menu'}
+        </div>
 
         <KanjiDicHeader />
 

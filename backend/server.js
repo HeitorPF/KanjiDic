@@ -5,11 +5,57 @@ const path = require('path');
 const JishoAPI = require('unofficial-jisho-api');
 const fs = require('fs');
 const axios = require('axios')
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const app = express();
+app.use(express.json())
 const port = process.env.PORT || 3001;
 
+const SALT_ROUNDS = 10
+
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => console.log('Conectado ao MongoDB!'))
+    .catch(err => console.error('Erro ao conectar: ', err.message));
+
+const User = mongoose.model('User', new mongoose.Schema({
+    email: String,
+    password: String,
+    name: String
+}));
+
 const dominiosPermitidos = ['http://localhost:5173', 'https://kanji-dic.vercel.app'];
+
+async function fetchJishoData(kanji) {
+    const result = await jisho.searchForKanji(kanji)
+    result.onyomi = result.onyomi.join('、 ')
+    result.kunyomi = result.kunyomi.join('、 ')
+    result.radical = `${result.radical.symbol} ${result.radical.forms ? `(${result.radical.forms})` : ''} - ${result.radical.meaning}`
+    result.parts = result.parts.join('、 ')
+
+    return result
+}
+
+async function fetchKanjiAliveData(kanji) {
+    const apiKey = process.env.KANJIALIVE_API_KEY;
+    const result = await axios.get(`https://kanjialive-api.p.rapidapi.com/api/public/kanji/${encodeURIComponent(kanji)}`, {
+        method: 'GET',
+        headers: {
+            'x-rapidapi-key': apiKey,
+            'x-rapidapi-host': 'kanjialive-api.p.rapidapi.com'
+        }
+    })
+    return {
+        examples: result.data.examples,
+        source: 'KanjiAlive'
+    }
+}
+
+async function fetchTatoebaData(kanji) {
+    const result = await axios.get(`https://api.tatoeba.org/v1/sentences?lang=jpn&q=${encodeURIComponent(kanji)}&word_count=-10&trans%3Alang=eng&sort=relevance&limit=20&include=transcriptions`)
+    return result.data
+}
 
 app.use(cors({
     origin: function (origin, callback) {
@@ -51,36 +97,6 @@ app.get('/api/kanji/:category/:level', async (req, res) => {
         res.status(500).json({ erro: "Erro ao ler o arquivo de dados." });
     }
 })
-
-async function fetchJishoData(kanji) {
-    const result = await jisho.searchForKanji(kanji)
-    result.onyomi = result.onyomi.join('、 ')
-    result.kunyomi = result.kunyomi.join('、 ')
-    result.radical = `${result.radical.symbol} ${result.radical.forms ? `(${result.radical.forms})` : ''} - ${result.radical.meaning}`
-    result.parts = result.parts.join('、 ')
-
-    return result
-}
-
-async function fetchKanjiAliveData(kanji) {
-    const apiKey = process.env.KANJIALIVE_API_KEY;
-    const result = await axios.get(`https://kanjialive-api.p.rapidapi.com/api/public/kanji/${encodeURIComponent(kanji)}`, {
-        method: 'GET',
-        headers: {
-            'x-rapidapi-key': apiKey,
-            'x-rapidapi-host': 'kanjialive-api.p.rapidapi.com'
-        }
-    })
-    return {
-        examples: result.data.examples,
-        source: 'KanjiAlive'
-    }
-}
-
-async function fetchTatoebaData(kanji) {
-    const result = await axios.get(`https://api.tatoeba.org/v1/sentences?lang=jpn&q=${encodeURIComponent(kanji)}&word_count=-10&trans%3Alang=eng&sort=relevance&limit=20&include=transcriptions`)
-    return result.data
-}
 
 app.get('/api/kanji/:character', async (req, res) => {
     const { character } = req.params;
@@ -132,6 +148,41 @@ app.get('/api/kanji/:character', async (req, res) => {
         errorInSomeSource: [jishoResult, kanjiAliveResult, tatoebaResult].some(r => r.status === 'rejected')
     });
 });
+
+app.post('/api/login', async (req, res) => {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email: email })
+
+    if (!user) {
+        res.status(400).json({ message: 'Email ou senha incorretos' })
+    }
+    else {
+        const match = await bcrypt.compare(password, user.password)
+        if (match) {
+            console.log('logou')
+            return res.status(200).json(user);
+        }
+        else {
+            return res.status(400).json({ message: 'Email ou senha incorretos' })
+        }
+
+    }
+
+})
+
+app.post('/api/register', async (req, res) => {
+    const { name, email, password } = req.body;
+    if (await User.findOne({ email: email })) {
+        res.status(400).json({ message: 'email já cadastrado' })
+    }
+    else {
+        const pwcrypt = await bcrypt.hash(password, SALT_ROUNDS)
+        const user = new User({ name, email, password: pwcrypt })
+        await user.save()
+        return res.status(200).json(user);
+    }
+
+})
 
 app.listen(port, () => {
     console.log(`Servidor Backend rodando em http://localhost:${port}`);
