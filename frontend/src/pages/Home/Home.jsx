@@ -7,7 +7,6 @@ import { KanjiVocab } from './KanjiVocab'
 import { KanjiLists } from './KanjiLists'
 import { LoadingSpinner } from '../../components/LoadingSpinner'
 import { KanjiPhrases } from './KanjiPhrases'
-import { AnkiConnect } from '../../components/AnkiConnect'
 import './Home.css'
 
 export function Home({ fetchAnkiData, isAnkiOpen }) {
@@ -163,49 +162,52 @@ export function Home({ fetchAnkiData, isAnkiOpen }) {
   }
 
   return (
-    <>
-      <div>
-        <KanjiLists
-          setKanjiInput={setKanjiInput}
-          API_BASE_URL={API_BASE_URL}
-        />
+    <div>
+      <KanjiLists
+        setKanjiInput={setKanjiInput}
+        API_BASE_URL={API_BASE_URL}
+      />
 
-        <KanjiInput
-          kanjiInput={kanjiInput}
-          setKanjiInput={setKanjiInput}
-          search={search}
-        />
+      <KanjiInput
+        kanjiInput={kanjiInput}
+        setKanjiInput={setKanjiInput}
+        search={search}
+      />
 
-        {isLoading && (
-          <LoadingSpinner kanjiInput={kanjiInput} />
-        )}
+      {isLoading && (
+        <LoadingSpinner kanjiInput={kanjiInput} />
+      )}
 
-        {!isLoading && kanjiData && (
-          <>
-            {
-              isAnkiOpen && <div
-                className='add-note-btn'
-                onClick={addNote}
-              >Add Note</div>
-            }
+      {!isLoading && kanjiData && (
+        <>
+          <KanjiInfo
+            info={kanjiData.jisho}
+          />
+          <KanjiVocab
+            vocab={kanjiData.vocabData}
+            query={kanjiData.query}
+            vocabSelected={vocabSelected}
+            setVocabSelected={setVocabSelected}
+          />
+          <KanjiPhrases
+            phrases={kanjiData.tatoeba}
+            phraseSelected={phraseSelected}
+            setPhraseSelected={setPhraseSelected}
+          />
 
-            <KanjiInfo
-              info={kanjiData.jisho}
-            />
-            <KanjiVocab
-              vocab={kanjiData.vocabData}
-              query={kanjiData.query}
-              vocabSelected={vocabSelected}
-              setVocabSelected={setVocabSelected}
-            />
-            <KanjiPhrases
-              phrases={kanjiData.tatoeba}
-              phraseSelected={phraseSelected}
-              setPhraseSelected={setPhraseSelected}
-            />
-          </>
-        )}
-      </div>
-    </>
+          {
+            isAnkiOpen && (
+              <>
+                <hr />
+                <div
+                  className='add-note-btn'
+                  onClick={addNote}
+                >Add Note</div>
+              </>
+            )
+          }
+        </>
+      )}
+    </div>
   )
 }

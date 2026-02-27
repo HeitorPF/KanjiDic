@@ -1,5 +1,12 @@
+.kanji-dic-header{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .title{
   color: #FFF;
+  text-align: center;
   font-family: "Inika", serif;
   font-weight: 700;
   font-style: normal;

@@ -5,6 +5,7 @@ import { Routes, Route } from 'react-router'
 import { useState, useEffect } from 'react'
 import { AnkiConnect } from './components/AnkiConnect'
 import { KanjiDicHeader } from './components/KanjiDicHeader'
+import { Login } from './components/LogIn'
 import axios from 'axios'
 import './App.css'
 
@@ -12,6 +13,7 @@ function App() {
 
   const [isAnkiOpen, setIsAnkiOpen] = useState(false)
   const [sideBar, setSideBar] = useState(false)
+
 
   async function fetchAnkiData(action, version, params = {}) {
     const response = await axios.post('http://127.0.0.1:8765', {
@@ -45,36 +47,15 @@ function App() {
 
   }, [isAnkiOpen])
 
-
-
   return (
     <div className='app'>
       <title>KanjiDic</title>
 
       <div className={`side-bar ${sideBar ? `open` : ''}`}>
-        
 
         <div className={`side-bar-content ${sideBar ? 'side-bar-content-visible' : ''}`}>
-          <div className='logar'>
-            <div className='email-form'>
-              <label htmlFor="email">Email:</label>
-              <input className='email-input' type="email" id="email" name="email" placeholder="Your email..." />
-            </div>
 
-            <div className='password-form'>
-              <label htmlFor="password">Password:</label>
-              <div className='password-input'>
-                <input type="password" id="password" name="password" placeholder="Your password.." />
-                <button>O</button>
-              </div>
-            </div>
-
-            <div className='logar-buttons'>
-              <input type="submit" value='Log In' />
-              <button>Create Account</button>
-            </div>
-
-          </div>
+          <Login />
 
           <AnkiConnect
             isAnkiOpen={isAnkiOpen}
@@ -84,7 +65,11 @@ function App() {
       </div>
 
       <main>
-        <div className='side-bar-btn' onClick={() => { setSideBar(!sideBar) }}>&#9776;</div>
+        <div className='side-bar-btn-container'>
+          <div className='side-bar-btn' onClick={() => { setSideBar(!sideBar) }}>&#9776;</div>
+          <div className='side-bar-btn-filler'></div>
+        </div>
+
         <KanjiDicHeader />
 
         <Routes>

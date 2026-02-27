@@ -13,7 +13,6 @@ main {
   height: 100vh;
   overflow-y: auto;
   scrollbar-width: none;
-  margin: 0 1rem;
 }
 
 .side-bar{
@@ -36,44 +35,30 @@ main {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  margin-top: 2rem;
 }
 
-.side-bar-btn{
-  font-size: 3rem;
-  display: inline;
-  cursor: pointer;
-  border: 2px solid transparent;
-  border-radius: .5rem;
-}
-.side-bar-btn:hover{
-  border: 2px solid hsl(207, 96%, 35%);
-}
-
-.logar{
+.side-bar-btn-container{
+  position: absolute;
+  background: linear-gradient(to right, hsl(0, 0%, 20%) 50%, #242424 50%);
   display: flex;
   flex-direction: column;
 }
 
-.email-form, .password-form{
-  width: 100%;
+.side-bar-btn-filler{
+  height: 1rem;
+  border-top-left-radius: .5rem;
+  background-color: #242424;;
 }
 
-.email-input, .password-input{
+.side-bar-btn{ 
   display: flex;
-  flex-direction: row;
-  width: 100%;
-}
-
-input{
-  width: 100%;
-}
-
-.logar-buttons{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-label{
-  display: block;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  cursor: pointer;
+  border-bottom-right-radius: .5rem;
+  border-top-right-radius: .5rem;
+  background-color: hsl(0, 0%, 20%);
+  width: 4rem;
+  height: 4rem;
 }

@@ -21,7 +21,6 @@
   font-weight: 500;
   cursor: pointer;
   transition: 0.3s;
-  margin-bottom: 2rem;
 }
 
 .search-button:hover {

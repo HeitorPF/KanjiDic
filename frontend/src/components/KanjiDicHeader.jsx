@@ -3,6 +3,9 @@ import './KanjiDicHeader.css'
 
 export function KanjiDicHeader(){
   return(
-    <Link to='/' className='title'>Kanji dic</Link>
+    <div className='kanji-dic-header'>
+      <Link to='/' className='title'>Kanji dic</Link>
+    </div>
+    
   )
 }
