@@ -1,9 +1,11 @@
-import { useState } from "react"
-import './Form.css'
 import axios from "axios";
+import { useState, useContext } from "react"
+import { UserContext } from "../../contexts/UserContext";
+import './Form.css'
 
-export function FormLogin({ user, setUser, setScreen }) {
+export function FormRegister({ setScreen }) {
 
+  const { user, setUser } = useContext(UserContext)
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
   const VITE_API_URL = import.meta.env.VITE_API_URL
@@ -17,9 +19,10 @@ export function FormLogin({ user, setUser, setScreen }) {
     });
   }
 
-  async function login() {
+  async function register() {
     try {
-      const resposta = await axios.post(`${VITE_API_URL}/api/login`, { email: user.email, password: user.password })
+      const resposta = await axios.post(`${VITE_API_URL}/api/register`, { name: user.name, email: user.email, password: user.password })
+
       const dados = resposta.data
       console.log(dados)
     } catch (e) {
@@ -29,7 +32,25 @@ export function FormLogin({ user, setUser, setScreen }) {
 
   return (
     <div className='form'>
-      <h2 className="form-title" onClick={() => { console.log(user) }}>Login</h2>
+      <h2 className="form-title">Register</h2>
+
+      <div className='name-form'>
+        <label
+          className="name-label"
+          htmlFor="name"
+        >
+          Name:
+        </label>
+        <input
+          className='name-input'
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Your name..."
+          onChange={handleChange}
+          value={user.name}
+        />
+      </div>
 
       <div className='email-form'>
         <label
@@ -79,21 +100,21 @@ export function FormLogin({ user, setUser, setScreen }) {
       <button
         className="form-btn"
         type="submit"
-        onClick={login}
+        onClick={register}
       >
-        Login
+        Register
         <span className="material-symbols-outlined">
-          login
+          person_add
         </span>
       </button>
 
       <div className="form-link">
-        Don't have an account yet?
+        Already have an account?
         <button
           className="form-link-btn"
-          onClick={() => { setScreen('register') }}
+          onClick={() => { setScreen('login') }}
         >
-          Register!
+          Sign in!
         </button>
       </div>
     </div>

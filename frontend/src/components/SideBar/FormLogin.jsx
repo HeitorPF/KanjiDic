@@ -1,9 +1,11 @@
-import { useState } from "react"
-import axios from "axios";
+import { useState, useContext } from "react"
+import { UserContext } from "../../contexts/UserContext";
 import './Form.css'
+import axios from "axios";
 
-export function FormRegister({ user, setUser, setScreen }) {
-
+export function FormLogin({ setScreen }) {
+  
+  const {user, setUser} = useContext(UserContext)
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
   const VITE_API_URL = import.meta.env.VITE_API_URL
@@ -17,38 +19,19 @@ export function FormRegister({ user, setUser, setScreen }) {
     });
   }
 
-  async function register() {
+  async function login() {
     try {
-      const resposta = await axios.post(`${VITE_API_URL}/api/register`, { name: user.name, email: user.email, password: user.password })
-
+      const resposta = await axios.post(`${VITE_API_URL}/api/login`, { email: user.email, password: user.password })
       const dados = resposta.data
       console.log(dados)
-    }catch(e){
+    } catch (e) {
       alert(`${e.response.data.message}`)
     }
   }
 
   return (
     <div className='form'>
-      <h2 className="form-title">Register</h2>
-
-      <div className='name-form'>
-        <label
-          className="name-label"
-          htmlFor="name"
-        >
-          Name:
-        </label>
-        <input
-          className='name-input'
-          type="text"
-          id="name"
-          name="name"
-          placeholder="Your name..."
-          onChange={handleChange}
-          value={user.name}
-        />
-      </div>
+      <h2 className="form-title" onClick={() => { console.log(user) }}>Login</h2>
 
       <div className='email-form'>
         <label
@@ -98,21 +81,21 @@ export function FormRegister({ user, setUser, setScreen }) {
       <button
         className="form-btn"
         type="submit"
-        onClick={register}
+        onClick={login}
       >
-        Register
+        Login
         <span className="material-symbols-outlined">
-          person_add
+          login
         </span>
       </button>
 
       <div className="form-link">
-        Already have an account?
+        Don't have an account yet?
         <button
           className="form-link-btn"
-          onClick={() => { setScreen('login') }}
+          onClick={() => { setScreen('register') }}
         >
-          Sign in!
+          Register!
         </button>
       </div>
     </div>

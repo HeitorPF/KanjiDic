@@ -7,9 +7,13 @@ import { KanjiVocab } from './KanjiVocab'
 import { KanjiLists } from './KanjiLists'
 import { LoadingSpinner } from '../../components/LoadingSpinner'
 import { KanjiPhrases } from './KanjiPhrases'
+import { AnkiOpenContext } from '../../contexts/AnkiOpenContext'
 import './Home.css'
+import { useContext } from 'react'
 
-export function Home({ fetchAnkiData, isAnkiOpen }) {
+export function Home({ fetchAnkiData}) {
+  const isAnkiOpen = useContext(AnkiOpenContext)
+
   const [kanjiData, setKanjiData] = useState(null)
 
   const [phraseSelected, setPhraseSelected] = useState(null)

@@ -1,6 +1,7 @@
-import { Fragment, useEffect, useState } from "react"
+import { Fragment, useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router"
 import { Modal } from "../../components/Modal"
+import { AnkiOpenContext } from "../../contexts/AnkiOpenContext"
 import "./AnkiSettings.css"
 
 const APP_DATA_OPTIONS = [
@@ -21,7 +22,8 @@ const APP_DATA_OPTIONS = [
   { value: "sentenceExampleTranslation", label: " Tanslations sentence example" },
 ]
 
-export function AnkiSettings({ isAnkiOpen, fetchAnkiData }) {
+export function AnkiSettings({ fetchAnkiData }) {
+  const isAnkiOpen = useContext(AnkiOpenContext)
   const navigate = useNavigate()
 
   const [ankiData, setAnkiData] = useState(null)
