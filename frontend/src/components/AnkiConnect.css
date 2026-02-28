@@ -4,21 +4,17 @@
   align-items: center;
   font-size: 1.2rem;
   height: 3rem;
-  background-color: hsl(0, 69%, 45%);
-  color: hsl(0, 0%, 0%);
-  border: none;
+  width: 100%;
+  background-color: transparent;
+  color: #FFF;
+  border: 2px solid #FFF;
   border-radius: .5rem;
   cursor: pointer;
   text-decoration: none;
 }
 
 .settings-icon{
-  font-size: 2rem;
-  margin-right: 1rem;
-}
-
-.anki-connect:hover {
-  background-color: hsl(0, 69%, 35%);
+  margin-right: .5rem;
 }
 
 .connected {

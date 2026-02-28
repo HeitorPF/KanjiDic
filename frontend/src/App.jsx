@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { KanjiDicHeader } from './components/KanjiDicHeader'
 import { SideBar } from './components/SideBar/SideBar'
 import { AnkiOpenContext } from './contexts/AnkiOpenContext'
-import { UserContext } from './contexts/UserContext'
+import { UserProvider } from './contexts/UserContext'
 import axios from 'axios'
 import './App.css'
 
@@ -14,7 +14,6 @@ function App() {
 
   const [isAnkiOpen, setIsAnkiOpen] = useState(false)
   const [sideBar, setSideBar] = useState(false)
-  const [user, setUser] = useState({})
 
   async function fetchAnkiData(action, version, params = {}) {
     const response = await axios.post('http://127.0.0.1:8765', {
@@ -29,7 +28,7 @@ function App() {
     <div className='app'>
 
       <AnkiOpenContext.Provider value={{ isAnkiOpen, setIsAnkiOpen }}>
-        <UserContext.Provider value={{ user, setUser }}>
+        <UserProvider>
           <SideBar
             sideBar={sideBar}
           />
@@ -58,7 +57,7 @@ function App() {
 
             <Analytics />
           </main>
-        </UserContext.Provider>
+        </UserProvider>
       </AnkiOpenContext.Provider>
     </div>
   )

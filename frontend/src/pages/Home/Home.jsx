@@ -63,7 +63,6 @@ export function Home({ fetchAnkiData}) {
 
       if (mapping.appField === 'vocabulary') {
         value = []
-        console.log(kanjiData.vocabData.examples)
         kanjiData.vocabData.examples.map((example, index) => {
           if (vocabSelected.includes(index)) {
             let parts = example.japanese.split('（')
@@ -92,7 +91,6 @@ export function Home({ fetchAnkiData}) {
       ankiFields[mapping.ankiField] = value
     })
 
-    console.log(ankiFields)
     return ankiFields
   }
 
@@ -116,7 +114,6 @@ export function Home({ fetchAnkiData}) {
     }
 
     const verify = await fetchAnkiData('canAddNotesWithErrorDetail', 6, params)
-    console.log(verify)
 
     if (verify[0].canAdd === true) {
       const result = await fetchAnkiData('addNotes', 6, params)

@@ -1,37 +1,25 @@
 import { useState, useContext } from "react"
 import { UserContext } from "../../contexts/UserContext";
 import './Form.css'
-import axios from "axios";
 
 export function FormLogin({ setScreen }) {
   
-  const {user, setUser} = useContext(UserContext)
+  const { login } = useContext(UserContext)
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
-
-  const VITE_API_URL = import.meta.env.VITE_API_URL
+  const [formData, setFormData] = useState({ email: '', password: '' })
 
   function handleChange(event) {
     const { name, value } = event.target;
 
-    setUser({
-      ...user,
+    setFormData({
+      ...formData,
       [name]: value
     });
   }
 
-  async function login() {
-    try {
-      const resposta = await axios.post(`${VITE_API_URL}/api/login`, { email: user.email, password: user.password })
-      const dados = resposta.data
-      console.log(dados)
-    } catch (e) {
-      alert(`${e.response.data.message}`)
-    }
-  }
-
   return (
     <div className='form'>
-      <h2 className="form-title" onClick={() => { console.log(user) }}>Login</h2>
+      <h2 className="form-title">Login</h2>
 
       <div className='email-form'>
         <label
@@ -47,7 +35,7 @@ export function FormLogin({ setScreen }) {
           name="email"
           placeholder="Your email..."
           onChange={handleChange}
-          value={user.email}
+          value={formData.email}
         />
       </div>
 
@@ -67,7 +55,7 @@ export function FormLogin({ setScreen }) {
             name="password"
             placeholder="Your password..."
             onChange={handleChange}
-            value={user.password}
+            value={formData.password}
           />
           <button
             className="password-hide material-symbols-outlined"
@@ -81,7 +69,7 @@ export function FormLogin({ setScreen }) {
       <button
         className="form-btn"
         type="submit"
-        onClick={login}
+        onClick={() => { login(formData.email, formData.password) }}
       >
         Login
         <span className="material-symbols-outlined">

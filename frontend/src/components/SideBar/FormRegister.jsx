@@ -5,26 +5,26 @@ import './Form.css'
 
 export function FormRegister({ setScreen }) {
 
-  const { user, setUser } = useContext(UserContext)
+  const { setUser } = useContext(UserContext)
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
+  const [formData, setFormData] = useState({ email: '', password: '', name: '' })
 
   const VITE_API_URL = import.meta.env.VITE_API_URL
 
   function handleChange(event) {
     const { name, value } = event.target;
-
-    setUser({
-      ...user,
+    setFormData({
+      ...formData,
       [name]: value
     });
   }
 
   async function register() {
     try {
-      const resposta = await axios.post(`${VITE_API_URL}/api/register`, { name: user.name, email: user.email, password: user.password })
+      const resposta = await axios.post(`${VITE_API_URL}/api/register`, { name: formData.name, email: formData.email, password: formData.password })
 
       const dados = resposta.data
-      console.log(dados)
+      setUser(dados.data)
     } catch (e) {
       alert(`${e.response.data.message}`)
     }
@@ -48,7 +48,7 @@ export function FormRegister({ setScreen }) {
           name="name"
           placeholder="Your name..."
           onChange={handleChange}
-          value={user.name}
+          value={formData.name}
         />
       </div>
 
@@ -66,7 +66,7 @@ export function FormRegister({ setScreen }) {
           name="email"
           placeholder="Your email..."
           onChange={handleChange}
-          value={user.email}
+          value={formData.email}
         />
       </div>
 
@@ -86,7 +86,7 @@ export function FormRegister({ setScreen }) {
             name="password"
             placeholder="Your password..."
             onChange={handleChange}
-            value={user.password}
+            value={formData.password}
           />
           <button
             className="password-hide material-symbols-outlined"

@@ -1,21 +1,23 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { FormLogin } from './FormLogin'
 import { FormRegister } from './FormRegister'
+import { UserContext } from "../../contexts/UserContext"
 import { Logged } from "./Logged"
 
 export function SideBar({ sideBar }) {
 
-  const [screen, setScreen] = useState('logged')
+  const { user } = useContext(UserContext)
+
+  const [screen, setScreen] = useState('login')
 
   function renderScreen() {
+    if (user)
+      return (
+        <>
+          <Logged />
+        </>
+      )
     switch (screen) {
-      case 'logged':
-        return (
-          <>
-            <Logged />
-          </>
-        )
-
       case 'login':
         return (
           <FormLogin

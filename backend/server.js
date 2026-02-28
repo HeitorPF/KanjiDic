@@ -1,29 +1,18 @@
 require('dotenv').config();
+const connectDB = require('./src/config/db').default;
+const authRoutes = require('./src/routes/authRoutes');
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const JishoAPI = require('unofficial-jisho-api');
 const fs = require('fs');
-const axios = require('axios')
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const axios = require('axios');
 
 const app = express();
 app.use(express.json())
 const port = process.env.PORT || 3001;
 
-const SALT_ROUNDS = 10
-
-mongoose.connect(process.env.MONGODB_URI)
-    .then(() => console.log('Conectado ao MongoDB!'))
-    .catch(err => console.error('Erro ao conectar: ', err.message));
-
-const User = mongoose.model('User', new mongoose.Schema({
-    email: String,
-    password: String,
-    name: String
-}));
+connectDB()
 
 const dominiosPermitidos = ['http://localhost:5173', 'https://kanji-dic.vercel.app'];
 
@@ -57,6 +46,8 @@ async function fetchTatoebaData(kanji) {
     return result.data
 }
 
+
+
 app.use(cors({
     origin: function (origin, callback) {
         if (!origin || dominiosPermitidos.includes(origin)) {
@@ -66,6 +57,8 @@ app.use(cors({
         }
     }
 }));
+
+app.use('/api', authRoutes);
 
 const jisho = new JishoAPI();
 
@@ -88,7 +81,6 @@ app.get('/api/kanji/:category/:level', async (req, res) => {
     }
 
     const caminhoArquivo = path.join(__dirname, 'src/data', nameArq);
-    console.log('path', caminhoArquivo)
     try {
         const dados = fs.readFileSync(caminhoArquivo, 'utf8');
         const json = JSON.parse(dados);
@@ -149,40 +141,6 @@ app.get('/api/kanji/:character', async (req, res) => {
     });
 });
 
-app.post('/api/login', async (req, res) => {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email: email })
-
-    if (!user) {
-        res.status(400).json({ message: 'Email ou senha incorretos' })
-    }
-    else {
-        const match = await bcrypt.compare(password, user.password)
-        if (match) {
-            console.log('logou')
-            return res.status(200).json(user);
-        }
-        else {
-            return res.status(400).json({ message: 'Email ou senha incorretos' })
-        }
-
-    }
-
-})
-
-app.post('/api/register', async (req, res) => {
-    const { name, email, password } = req.body;
-    if (await User.findOne({ email: email })) {
-        res.status(400).json({ message: 'email já cadastrado' })
-    }
-    else {
-        const pwcrypt = await bcrypt.hash(password, SALT_ROUNDS)
-        const user = new User({ name, email, password: pwcrypt })
-        await user.save()
-        return res.status(200).json(user);
-    }
-
-})
 
 app.listen(port, () => {
     console.log(`Servidor Backend rodando em http://localhost:${port}`);
