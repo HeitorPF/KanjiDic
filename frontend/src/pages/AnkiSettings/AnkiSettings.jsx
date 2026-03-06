@@ -121,47 +121,55 @@ export function AnkiSettings({ fetchAnkiData }) {
       <p>Choose where your generated cards will be saved.</p>
 
       {isAnkiOpen ? (
-        <div className="settings-form">
-          <div className="setting-group">
-            <label htmlFor="deck-select">Target Deck:</label>
-            <select id="deck-select" value={exportSettings.deck} onChange={handleDeckChange}>
-              {ankiData.decks.map((deck) => (
-                <option key={deck} value={deck}>{deck}</option>
-              ))}
-            </select>
-          </div>
-
-          <div className="setting-group">
-            <label htmlFor="model-select">Note Type:</label>
-            <select id="model-select" value={exportSettings.model} onChange={handleModelChange}>
-              {ankiData.models.map((model) => (
-                <option key={model} value={model}>{model}</option>
-              ))}
-            </select>
-          </div>
-
-          <div className="field-names-container">
-            {exportSettings.fieldMappings.map((mappingItem, index) => (
-              <Fragment key={index}>
-                <label htmlFor={`field-select-${mappingItem.ankiField}`} className="field-names-label">
-                  {mappingItem.ankiField}:
-                </label>
-
-                <select
-                  id={`field-select-${mappingItem.ankiField}`}
-                  value={mappingItem.appField}
-                  onChange={(e) => handleMappingChange(mappingItem.ankiField, e.target.value)}
-                >
-                  {APP_DATA_OPTIONS.map((appOption, i) => (
-                    <option key={i} value={appOption.value}>
-                      {appOption.label}
-                    </option>
+        <>
+          {ankiData ? (
+            <div className="settings-form">
+              <div className="setting-group">
+                <label htmlFor="deck-select">Target Deck:</label>
+                <select id="deck-select" value={exportSettings.deck} onChange={handleDeckChange}>
+                  {ankiData.decks.map((deck) => (
+                    <option key={deck} value={deck}>{deck}</option>
                   ))}
                 </select>
-              </Fragment>
-            ))}
-          </div>
-        </div>
+              </div>
+
+              <div className="setting-group">
+                <label htmlFor="model-select">Note Type:</label>
+                <select id="model-select" value={exportSettings.model} onChange={handleModelChange}>
+                  {ankiData.models.map((model) => (
+                    <option key={model} value={model}>{model}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="field-names-container">
+                {exportSettings.fieldMappings.map((mappingItem, index) => (
+                  <Fragment key={index}>
+                    <label htmlFor={`field-select-${mappingItem.ankiField}`} className="field-names-label">
+                      {mappingItem.ankiField}:
+                    </label>
+
+                    <select
+                      id={`field-select-${mappingItem.ankiField}`}
+                      value={mappingItem.appField}
+                      onChange={(e) => handleMappingChange(mappingItem.ankiField, e.target.value)}
+                    >
+                      {APP_DATA_OPTIONS.map((appOption, i) => (
+                        <option key={i} value={appOption.value}>
+                          {appOption.label}
+                        </option>
+                      ))}
+                    </select>
+                  </Fragment>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <p>Loading Anki data...</p>
+          )
+          }
+
+        </>
       ) : (
         <Modal isOpen={!isAnkiOpen} onClose={() => navigate('/')}>
           <div className="modal-error-content">
