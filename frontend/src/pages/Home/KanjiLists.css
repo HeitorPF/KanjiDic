@@ -28,7 +28,7 @@
   transition: .3s;
 }
 
-.grade-button-container {
+.grade-button-container, .jlpt-button-container {
   display: flex;
   justify-content: space-around;
   gap: .5rem;
@@ -36,7 +36,7 @@
   max-width: 45rem;
 }
 
-.grade-button {
+.grade-button, .jlpt-button {
   background-color: hsl(0, 0%, 80%);
   border: 2px solid transparent;
   width: 5rem;
@@ -47,17 +47,17 @@
   font-weight: 700;
 }
 
-.grade-button:hover {
+.grade-button:hover, .jlpt-button:hover {
   background-color: hsl(0, 0%, 70%);
   border: 2px solid hsl(207, 96%, 35%);
   transform: scale(1.15);
   transition: .1s;
 }
 
-.grade-selected {
+.grade-selected, .jlpt-selected {
   background-color: hsl(207, 96%, 35%);
 }
 
-.grade-selected:hover {
+.grade-selected:hover, .jlpt-selected:hover {
   background-color: hsl(207, 96%, 30%);
 }

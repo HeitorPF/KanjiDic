@@ -1,6 +1,7 @@
 require('dotenv').config();
 const connectDB = require('./src/config/db').default;
 const authRoutes = require('./src/routes/authRoutes');
+const kanjisRoutes = require('./src/routes/kanjisRoutes');
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
@@ -60,35 +61,14 @@ app.use(cors({
 
 app.use('/api', authRoutes);
 
+app.use('/api', kanjisRoutes);
+
 const jisho = new JishoAPI();
 
 app.get('/api/ping', (req, res) => {
     res.status(200).json({ status: 'ativo' });
     console.log('ping testado')
 });
-
-app.get('/api/kanji/:category/:level', async (req, res) => {
-    const category = req.params.category;
-    const level = req.params.level;
-    let nameArq = ''
-
-    if (category === 'jlpt') {
-        nameArq = `jlpt_${level}.json`;
-    } else if (category === 'grade') {
-        nameArq = `grade_${level}.json`;
-    } else {
-        return res.status(400).json({ erro: "Categoria inválida. Use 'jlpt' ou 'grade'." });
-    }
-
-    const caminhoArquivo = path.join(__dirname, 'src/data', nameArq);
-    try {
-        const dados = fs.readFileSync(caminhoArquivo, 'utf8');
-        const json = JSON.parse(dados);
-        res.json(json);
-    } catch (erro) {
-        res.status(500).json({ erro: "Erro ao ler o arquivo de dados." });
-    }
-})
 
 app.get('/api/kanji/:character', async (req, res) => {
     const { character } = req.params;

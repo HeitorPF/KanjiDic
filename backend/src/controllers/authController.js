@@ -18,7 +18,7 @@ async function login(req, res) {
       return res.status(400).json({ message: 'Senha incorreta' });
     }
 
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '12h' });
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '48h' });
     return res.status(200).json({
       token: token
     });
@@ -38,7 +38,7 @@ async function register(req, res) {
     const pwcrypt = await bcrypt.hash(password, SALT_ROUNDS)
     const user = new User({ name, email, password: pwcrypt })
     await user.save()
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '12h' });
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '48h' });
     return res.status(200).json({
       token: token
     });

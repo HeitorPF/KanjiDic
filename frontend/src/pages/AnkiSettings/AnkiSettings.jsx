@@ -120,7 +120,7 @@ export function AnkiSettings({ fetchAnkiData }) {
       <h2>Export Settings</h2>
       <p>Choose where your generated cards will be saved.</p>
 
-      {ankiData ? (
+      {isAnkiOpen ? (
         <div className="settings-form">
           <div className="setting-group">
             <label htmlFor="deck-select">Target Deck:</label>
@@ -163,15 +163,13 @@ export function AnkiSettings({ fetchAnkiData }) {
           </div>
         </div>
       ) : (
-        isAnkiOpen && <p>Loading Anki data...</p>
+        <Modal isOpen={!isAnkiOpen} onClose={() => navigate('/')}>
+          <div className="modal-error-content">
+            <h3>⚠️ Anki Disconnected</h3>
+            <p>Please open the Anki app on your computer to configure your cards.</p>
+          </div>
+        </Modal>
       )}
-
-      <Modal isOpen={!isAnkiOpen} onClose={() => navigate('/')}>
-        <div className="modal-error-content">
-          <h3>⚠️ Anki Disconnected</h3>
-          <p>Please open the Anki app on your computer to configure your cards.</p>
-        </div>
-      </Modal>
     </div>
   );
 }

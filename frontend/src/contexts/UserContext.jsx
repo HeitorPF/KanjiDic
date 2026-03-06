@@ -16,14 +16,15 @@ export function UserProvider({ children }) {
     localStorage.removeItem('kanjidic_token');
   }
 
-  async function carregarPerfil(token) {
+  async function carregarPerfil() {
     try {
+      const token = localStorage.getItem('kanjidic_token');
       const resposta = await axios.get(`${VITE_API_URL}/api/perfil`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setUser(resposta.data);
       console.log("Perfil carregado com sucesso!");
-    // eslint-disable-next-line no-unused-vars
+      // eslint-disable-next-line no-unused-vars
     } catch (erro) {
       console.error("Token inválido, deslogando...");
       logout();
@@ -33,22 +34,33 @@ export function UserProvider({ children }) {
   useEffect(() => {
     const tokenSalvo = localStorage.getItem('kanjidic_token');
     if (tokenSalvo) {
-      carregarPerfil(tokenSalvo);
+      carregarPerfil();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function login(email, password) {
     const resposta = await axios.post(`${VITE_API_URL}/api/login`, { email, password });
     const token = resposta.data.token;
     localStorage.setItem('kanjidic_token', token);
-    await carregarPerfil(token); 
+    await carregarPerfil();
+  }
+
+  async function register(name, email, password) {
+    try {
+      const resposta = await axios.post(`${VITE_API_URL}/api/register`, { name, email, password })
+      const token = resposta.data.token
+      localStorage.setItem('kanjidic_token', token);
+      await carregarPerfil();
+    } catch (e) {
+      alert(`${e.response.data.message}`)
+    }
   }
 
   // 3. A DISTRIBUIÇÃO
   // É aqui que empacotamos as variáveis e funções e mandamos para o resto do site!
   return (
-    <UserContext.Provider value={{ user, setUser, login, logout }}>
+    <UserContext.Provider value={{ user, login, logout, register }}>
       {children}
     </UserContext.Provider>
   );

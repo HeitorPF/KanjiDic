@@ -1,11 +1,10 @@
-import axios from "axios";
 import { useState, useContext } from "react"
 import { UserContext } from "../../contexts/UserContext";
 import './Form.css'
 
 export function FormRegister({ setScreen }) {
 
-  const { setUser } = useContext(UserContext)
+  const { register } = useContext(UserContext)
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const [formData, setFormData] = useState({ email: '', password: '', name: '' })
 
@@ -19,16 +18,7 @@ export function FormRegister({ setScreen }) {
     });
   }
 
-  async function register() {
-    try {
-      const resposta = await axios.post(`${VITE_API_URL}/api/register`, { name: formData.name, email: formData.email, password: formData.password })
 
-      const dados = resposta.data
-      setUser(dados.data)
-    } catch (e) {
-      alert(`${e.response.data.message}`)
-    }
-  }
 
   return (
     <div className='form'>
@@ -100,7 +90,7 @@ export function FormRegister({ setScreen }) {
       <button
         className="form-btn"
         type="submit"
-        onClick={register}
+        onClick={() => register(formData.name, formData.email, formData.password)}
       >
         Register
         <span className="material-symbols-outlined">
