@@ -7,15 +7,15 @@ import { KanjiVocab } from './KanjiVocab'
 import { KanjiLists } from './KanjiLists'
 import { LoadingSpinner } from '../../components/LoadingSpinner'
 import { KanjiPhrases } from './KanjiPhrases'
-import { AnkiOpenContext } from '../../contexts/AnkiOpenContext'
-import './Home.css'
+import { AnkiContext } from "../../contexts/AnkiContext"
 import { useContext } from 'react'
+import './Home.css'
 
-export function Home({ fetchAnkiData}) {
-  const isAnkiOpen = useContext(AnkiOpenContext)
+export function Home() {
+
+  const { fetchAnkiData } = useContext(AnkiContext)
 
   const [kanjiData, setKanjiData] = useState(null)
-
   const [phraseSelected, setPhraseSelected] = useState(null)
   const [vocabSelected, setVocabSelected] = useState([])
 
@@ -194,18 +194,13 @@ export function Home({ fetchAnkiData}) {
             phraseSelected={phraseSelected}
             setPhraseSelected={setPhraseSelected}
           />
-
-          {
-            isAnkiOpen && (
-              <>
-                <hr />
-                <div
-                  className='add-note-btn'
-                  onClick={addNote}
-                >Add Note</div>
-              </>
-            )
-          }
+          <>
+            <hr />
+            <div
+              className='add-note-btn'
+              onClick={addNote}
+            >Add Note</div>
+          </>
         </>
       )}
     </div>
