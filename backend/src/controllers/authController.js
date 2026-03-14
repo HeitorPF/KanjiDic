@@ -45,21 +45,4 @@ async function register(req, res) {
   }
 }
 
-async function getPerfil(req, res){
-    try {
-        //busca dados do usuário no banco de dados, sem a senha
-        const user = await User.findById(req.userId).select('-password');
-
-        if (!user) {
-            return res.status(404).json({ message: 'Usuário não encontrado.' });
-        }
-
-        res.status(200).json(user);
-
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Erro ao buscar o perfil do usuário.' });
-    }
-}
-
-module.exports = { login, register, getPerfil };
+module.exports = { login, register};

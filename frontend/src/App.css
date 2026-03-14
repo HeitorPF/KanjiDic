@@ -19,7 +19,7 @@ main {
 
 .side-bar{
   width: 0;
-  background-color: hsl(0, 0%, 20%);
+  background-color: #333333;
   height: 100vh;
   display: flex;
   flex-direction: column;

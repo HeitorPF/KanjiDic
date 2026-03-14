@@ -1,5 +1,6 @@
 import { Home } from './pages/Home/Home'
 import { AnkiSettings } from './pages/AnkiSettings/AnkiSettings'
+import { Account } from './pages/Account/Account'
 import { Analytics } from "@vercel/analytics/react"
 import { Routes, Route } from 'react-router'
 import { useState } from 'react'
@@ -7,6 +8,7 @@ import { KanjiDicHeader } from './components/KanjiDicHeader'
 import { SideBar } from './components/SideBar/SideBar'
 import { UserProvider } from './contexts/UserContext'
 import { AnkiProvider } from './contexts/AnkiContext'
+import { ProtectedRoute } from './components/ProtectedRoute'
 import './App.css'
 
 function App() {
@@ -33,10 +35,11 @@ function App() {
             <KanjiDicHeader />
 
             <Routes>
-              <Route index element={
-                <Home                />} />
-              <Route path='/ankiSettings' element={
-                <AnkiSettings                />} />
+              <Route index element={<Home />} />
+              <Route element={<ProtectedRoute />}>
+                <Route path='/ankiSettings' element={<AnkiSettings />} />
+                <Route path='/account' element={<Account />} />
+              </Route>
             </Routes>
 
             <Analytics />

@@ -18,10 +18,12 @@
 .kanji-phrases-table-row{
   border: 2px solid transparent;
   cursor: pointer;
+  transition: .2s;
 }
 
 .kanji-phrases-table-row rt{
   opacity: 0;
+  transition: .2s;
 }
 
 .kanji-phrases-table-row:hover rt{
@@ -30,14 +32,17 @@
 
 .kanji-phrases-table-selected{
   border: 2px solid hsl(158, 96%, 35%);
-}
-
-.kanji-phrases-table-selected rt{
-  opacity: 1;
+  cursor: pointer;
+  transition: .2s;
 }
 
 :has(+ .kanji-phrases-table-selected){
   border-bottom: 2px solid hsl(158, 96%, 35%);
+  transition: .2s;
+}
+
+.kanji-phrases-table-selected rt{
+  opacity: 1;
 }
 
 .transcriptions{
@@ -55,6 +60,7 @@ td{
   padding: .4rem;
   font-size: 1.3rem;
   text-align: center;
+  height: 3rem;
 }
 
 ruby {

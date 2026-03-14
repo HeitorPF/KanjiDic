@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import axios from 'axios';
 
 const VITE_API_URL = import.meta.env.VITE_API_URL
@@ -9,11 +10,15 @@ export const UserContext = createContext();
 
 // 2. O SERVIDOR (O que você importa SÓ no App.jsx para abraçar o site todo)
 export function UserProvider({ children }) {
+
+  const navigate = useNavigate()
+
   const [user, setUser] = useState(null);
 
   function logout() {
     setUser(null);
     localStorage.removeItem('kanjidic_token');
+    navigate('/')
   }
 
   async function carregarPerfil() {

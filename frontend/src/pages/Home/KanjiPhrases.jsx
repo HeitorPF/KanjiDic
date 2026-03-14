@@ -18,7 +18,7 @@ export function KanjiPhrases({ phrases, phraseSelected, setPhraseSelected }) {
               if (phrase.transcriptions[0]?.text && phrase.translations[0]?.text) {
                 return (
                   <tr
-                    className={`kanji-phrases-table-row ${phraseSelected === index ? 'kanji-phrases-table-selected' : ''}`}
+                    className={phraseSelected === index ? 'kanji-phrases-table-selected' : 'kanji-phrases-table-row'}
                     key={phrase.id}
                     onClick={() => setPhraseSelected(index)}
                   >

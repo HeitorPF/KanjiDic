@@ -2,6 +2,7 @@ require('dotenv').config();
 const connectDB = require('./src/config/db').default;
 const authRoutes = require('./src/routes/authRoutes');
 const kanjisRoutes = require('./src/routes/kanjisRoutes');
+const userRoutes = require('./src/routes/userRoutes');
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
@@ -62,6 +63,8 @@ app.use(cors({
 app.use('/api', authRoutes);
 
 app.use('/api', kanjisRoutes);
+
+app.use('/api', userRoutes);
 
 const jisho = new JishoAPI();
 
