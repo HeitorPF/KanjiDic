@@ -9,6 +9,7 @@ import { SideBar } from './components/SideBar/SideBar'
 import { UserProvider } from './contexts/UserContext'
 import { AnkiProvider } from './contexts/AnkiContext'
 import { ProtectedRoute } from './components/ProtectedRoute'
+import { Menu, ChevronLeft } from 'lucide-react'
 import './App.css'
 
 function App() {
@@ -25,11 +26,13 @@ function App() {
           />
 
           <main>
+
             <div
-              className='side-bar-btn material-symbols-outlined'
+              className='side-bar-btn'
               onClick={() => { setSideBar(!sideBar) }}
             >
-              {sideBar ? 'arrow_back' : 'menu'}
+              {sideBar ? <ChevronLeft size={32} /> : <Menu size={32} />}
+              
             </div>
 
             <KanjiDicHeader />

@@ -1,5 +1,6 @@
 import { useState, useContext } from "react"
 import { UserContext } from "../../contexts/UserContext";
+import { Eye, EyeOff, LogIn } from 'lucide-react'
 import './Form.css'
 
 export function FormLogin({ setScreen }) {
@@ -58,10 +59,10 @@ export function FormLogin({ setScreen }) {
             value={formData.password}
           />
           <button
-            className="password-hide material-symbols-outlined"
+            className="password-hide"
             onClick={() => { setIsPasswordVisible(!isPasswordVisible) }}
           >
-            {isPasswordVisible ? 'visibility' : 'visibility_off'}
+            {isPasswordVisible ? <Eye size={24}/> : <EyeOff size={24}/>}
           </button>
         </div>
       </div>
@@ -72,9 +73,7 @@ export function FormLogin({ setScreen }) {
         onClick={() => { login(formData.email, formData.password) }}
       >
         Login
-        <span className="material-symbols-outlined">
-          login
-        </span>
+        <LogIn />
       </button>
 
       <div className="form-link">

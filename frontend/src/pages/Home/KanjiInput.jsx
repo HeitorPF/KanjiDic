@@ -1,3 +1,4 @@
+import { Search } from 'lucide-react'
 import './KanjiInput.css'
 
 export function KanjiInput({ kanjiInput, setKanjiInput, search }) {
@@ -10,10 +11,10 @@ export function KanjiInput({ kanjiInput, setKanjiInput, search }) {
     <>
       <div className='search'>
         <span
-          className="material-symbols-outlined search-icon"
+          className="search-icon"
           onClick={() => { search(kanjiInput) }}
         >
-          search
+          <Search />
         </span>
         <input
           placeholder='犬'

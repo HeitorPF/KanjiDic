@@ -175,7 +175,7 @@ export function Home() {
       />
 
       {isLoading && (
-        <LoadingSpinner kanjiInput={kanjiInput} />
+        <LoadingSpinner size={200} text={kanjiInput} />
       )}
 
       {!isLoading && kanjiData && (

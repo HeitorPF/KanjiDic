@@ -12,8 +12,16 @@
   font-size: 3rem;
 }
 
-.img-loading{
-  position: absolute;
-  margin: auto;
-  height: 10rem;
+.icone-girando {
+  animation: spin 1s linear infinite;
+}
+
+/* Criamos a regra matemática da rotação */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

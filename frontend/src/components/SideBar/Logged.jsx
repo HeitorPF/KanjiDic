@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import { Link } from 'react-router'
+import { User, Settings, LogOut } from 'lucide-react'
 import './Logged.css'
 
 export function Logged() {
@@ -19,9 +20,7 @@ export function Logged() {
             className='login-options'
             to='/account'
           >
-            <span className="material-symbols-outlined">
-              person
-            </span>
+            <User />
             Account
           </Link>
 
@@ -30,9 +29,7 @@ export function Logged() {
             className='login-options'
             to='/ankiSettings'
           >
-            <span className='material-symbols-outlined settings-icon'>
-              settings
-            </span>
+            <Settings />
             Configure Anki
           </ Link>
 
@@ -45,9 +42,7 @@ export function Logged() {
           onClick={logout}
           className="login-options logout"
         >
-          <span className="material-symbols-outlined">
-            logout
-          </span>
+          <LogOut />
           Logout
         </button>
       </div>

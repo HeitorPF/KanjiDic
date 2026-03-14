@@ -1,15 +1,12 @@
-import loading from '/loading.svg'
+import { LoaderCircle } from 'lucide-react'
 import './LoadingSpinner.css'
 
-export function LoadingSpinner({ kanjiInput }) {
+export function LoadingSpinner({ size, text='' }) {
   return (
     <div className='loading'>
-      <div className='loading-kanji'>{kanjiInput}</div>
-      <img
-        className='img-loading'
-        src={loading}
-        alt=""
-      />
+      <LoaderCircle size={size} color='#0462af' className='icone-girando'/>
+      <div className='loading-kanji'>{text}</div>
+
     </div>
   )
 }

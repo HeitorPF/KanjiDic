@@ -1,6 +1,7 @@
 import { Fragment, useContext, useEffect, useState } from "react"
 import "./AnkiSettings.css"
 import { AnkiContext } from "../../contexts/AnkiContext"
+import { LoadingSpinner } from "../../components/LoadingSpinner"
 
 const APP_DATA_OPTIONS = [
   { value: "", label: "" },
@@ -24,7 +25,9 @@ export function AnkiSettings() {
   const { fetchAnkiData } = useContext(AnkiContext)
 
   const [ankiData, setAnkiData] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
   const [exportSettings, setExportSettings] = useState({ deck: '', model: '', fieldMappings: [] })
+
 
   async function buildFieldMappings(modelName, currentMappings = []) {
     if (!modelName) return;
@@ -45,6 +48,7 @@ export function AnkiSettings() {
   useEffect(() => {
     async function getAnkiData() {
       try {
+        setIsLoading(true)
         const decks = await fetchAnkiData('deckNames', 6)
         const models = await fetchAnkiData('modelNames', 6)
         if (!decks || !models) return;
@@ -66,13 +70,15 @@ export function AnkiSettings() {
 
         localStorage.setItem('ankiExportSettings', JSON.stringify(savedSettings))
         setExportSettings(savedSettings)
+        setIsLoading(false)
 
       } catch (error) {
         console.error("Erro ao buscar dados do Anki", error)
+        setIsLoading(false)
       }
     };
+    
     getAnkiData()
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -159,7 +165,7 @@ export function AnkiSettings() {
             </div>
           </div>
         ) : (
-          <p>Loading Anki data...</p>
+          isLoading && <LoadingSpinner size={200} />
         )
         }
       </>

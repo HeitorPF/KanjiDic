@@ -1,5 +1,6 @@
 import { useState, useContext } from "react"
 import { UserContext } from "../../contexts/UserContext";
+import { Eye, EyeOff, UserPlus } from 'lucide-react'
 import './Form.css'
 
 export function FormRegister({ setScreen }) {
@@ -79,10 +80,10 @@ export function FormRegister({ setScreen }) {
             value={formData.password}
           />
           <button
-            className="password-hide material-symbols-outlined"
+            className="password-hide"
             onClick={() => { setIsPasswordVisible(!isPasswordVisible) }}
           >
-            {isPasswordVisible ? 'visibility' : 'visibility_off'}
+            {isPasswordVisible ? <Eye size={24} /> : <EyeOff size={24} />}
           </button>
         </div>
       </div>
@@ -93,9 +94,7 @@ export function FormRegister({ setScreen }) {
         onClick={() => register(formData.name, formData.email, formData.password)}
       >
         Register
-        <span className="material-symbols-outlined">
-          person_add
-        </span>
+        <UserPlus />
       </button>
 
       <div className="form-link">
