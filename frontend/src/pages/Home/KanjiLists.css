@@ -21,11 +21,22 @@
   text-align: center;
 }
 
+.light-mode .kanji-button {
+  border: 2px #5c5c5c solid;
+  background-color: hsl(0, 0%, 87%);
+  color: #000;
+}
+
 .kanji-button:hover {
   background-color: hsl(0, 0%, 26%);
   border-color: hsl(207, 96%, 35%);
   transform: scale(1.15);
   transition: .3s;
+}
+
+.light-mode .kanji-button:hover {
+  background-color: hsl(0, 0%, 77%);
+  border-color: hsl(207, 96%, 35%);
 }
 
 .grade-button-container, .jlpt-button-container {

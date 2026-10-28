@@ -19,6 +19,10 @@
   border-radius: .5rem;
 }
 
+.light-mode .account-info{
+  background-color: #DDD;
+}
+
 .change-password-container{
   display: flex;
   flex-direction: column;
@@ -27,6 +31,10 @@
   max-width: 400px;
   background-color: #333;
   border-radius: .5rem;
+}
+
+.light-mode .change-password-container{
+  background-color: #DDD;
 }
 
 .change-password-btn{

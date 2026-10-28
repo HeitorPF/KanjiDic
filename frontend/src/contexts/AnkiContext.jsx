@@ -34,7 +34,7 @@ export function AnkiProvider({ children }) {
       {children}
       <Modal isOpen={ismodalOpen} onClose={() => { navigate('/'); setIsModalOpen(false) }}>
         <div className="modal-error-content">
-          <h3><TriangleAlert color="#ffff00" /> Anki Disconnected</h3>
+          <h3><TriangleAlert className='TriangleAlert'/> Anki Disconnected</h3>
           <p>Please open the Anki app on your computer to configure your cards.</p>
         </div>
       </Modal>

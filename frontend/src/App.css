@@ -1,6 +1,11 @@
 body {
-  background-color: #242424;
+  background-color: hsl(0, 0%, 14%);
   color: #FFFFFF;
+}
+
+body.light-mode {
+  background-color: #FFFFFF;
+  color: #000000;
 }
 
 .app{
@@ -19,13 +24,17 @@ main {
 
 .side-bar{
   width: 0;
-  background-color: #333333;
+  background-color: hsl(0, 0%, 25%);
   height: 100vh;
   display: flex;
   flex-direction: column;
   transition: .3s;
   overflow-x: hidden;
   white-space: nowrap;
+}
+
+.light-mode .side-bar {
+  background-color: #DDDDDD;
 }
 
 .open{
@@ -48,7 +57,32 @@ main {
   cursor: pointer;
   border-bottom-right-radius: .5rem;
   border-top-right-radius: .5rem;
-  background-color: hsl(0, 0%, 20%);
+  background-color: hsl(0, 0%, 25%);
   width: 4rem;
   height: 4rem;
+  z-index: 2;
+}
+
+.light-mode .side-bar-btn{ 
+  background-color: hsl(0, 0%, 87%);
+}
+
+.side-bar-btn-theme{ 
+  position: absolute;
+  top: 3.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  cursor: pointer;
+  border-bottom-right-radius: .5rem;
+  border-top-right-radius: .5rem;
+  background-color: hsl(0, 0%, 10%);
+  width: 4rem;
+  height: 4rem;
+  z-index: 1
+}
+
+.light-mode .side-bar-btn-theme { 
+  background-color: hsl(0, 0%, 78%);
 }

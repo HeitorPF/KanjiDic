@@ -11,11 +11,15 @@
   width: 10rem;
   padding: .5rem;
   cursor: pointer;
-  border: 1px solid #555;
+  border: 1px solid #0462af;
   margin-bottom: 1rem;
   margin-top: 1rem;
-  border-color: hsl(207, 96%, 35%);
   border-radius: .5rem;
+}
+
+.light-mode .add-note-btn{
+  background-color: #DDD;
+  border: 1px solid #0462af;
 }
 
 hr{
